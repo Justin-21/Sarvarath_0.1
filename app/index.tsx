@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import { StatusBar, StyleSheet } from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 
 import {
   HomePage,
@@ -9,7 +9,12 @@ import {
   SignUp,
   Welcome,
 } from "@/screens";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import {
+  DrawerContentScrollView,
+  DrawerItem,
+  DrawerItemList,
+  createDrawerNavigator,
+} from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 
 const Drawer = createDrawerNavigator();
@@ -17,35 +22,58 @@ const Drawer = createDrawerNavigator();
 function DrawerNavigation() {
   return (
     <Drawer.Navigator
-      initialRouteName="Welcome"
+      initialRouteName="Login"
       screenOptions={{ headerTitleAlign: "center" }}
     >
       <Drawer.Screen
-        name="Home"
+        name="HomePage"
         component={HomePage}
+        options={{
+          title: "HomePage",
+          headerShown: true,
+        }}
       />
       <Drawer.Screen
         name="Profile"
         component={Profile}
+        options={{
+          headerShown: true,
+          headerTitle: "Profile",
+        }}
       />
       <Drawer.Screen
         name="SearchBuses"
         component={SearchBuses}
+        options={{
+          title: "Search",
+          headerShown: false,
+        }}
       />
     </Drawer.Navigator>
   );
 }
 
 import { createStackNavigator } from "@react-navigation/stack";
+import OnboardingScreen from "@/screens/onboardingScreen";
 
 const Stack = createStackNavigator();
 
 function StackNav() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
+    <Stack.Navigator initialRouteName="Onboarding">
+      {/* <Stack.Screen
         name="Welcome Page"
         component={Welcome}
+        options={{
+          gestureEnabled: false,
+        }}
+      /> */}
+      <Stack.Screen
+        name="Onboarding"
+        component={OnboardingScreen}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="Login"
@@ -72,7 +100,7 @@ function StackNav() {
   );
 }
 
-export default function App({ navigation }) {
+export default function App() {
   return (
     <NavigationContainer independent={true}>
       <StatusBar barStyle="dark-content" />

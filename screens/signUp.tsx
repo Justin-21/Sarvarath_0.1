@@ -5,27 +5,41 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import React from "react";
-import { Ionicons } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 
-const handleLogin = () => {};
+const SignUp = ({ navigation }) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-const handleSignUp = () => {};
+  const handleLogin = () => {
+    navigation.navigate("Login");
+  };
 
-const SignUp = () => {
+  const handleSignUp = () => {
+    if (!name || !email || !password) {
+      alert("Please enter all the details");
+    }
+    if (name && email && password) {
+      alert("Successfully Registered. Please Login to continue");
+      navigation.navigate("Login");
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Ionicons
-        name={"logo-android"}
+      <FontAwesome5
+        name="bus"
         size={60}
-        color={"#1B1B1B"}
+        color="#ffd700"
       />
       <Text
         style={{
           fontSize: 30,
           color: "#1B1B1B",
           fontWeight: "400",
-          marginBottom: 30,
+          marginTop: 30,
         }}
       >
         Welcome to
@@ -35,7 +49,7 @@ const SignUp = () => {
           fontSize: 30,
           color: "#1B1B1B",
           fontWeight: "600",
-          //   marginTop: 50,
+          marginBottom: 30,
         }}
       >
         Sarvarath
@@ -44,15 +58,18 @@ const SignUp = () => {
         style={{
           fontSize: 16,
           color: "black",
-          marginTop: 20,
         }}
       >
-        Login to find the bus to your destination!
+        Register to get started!
       </Text>
+
+      {/* Input for name */}
       <TextInput
-        placeholder="Email"
+        placeholder="Name"
         placeholderTextColor="#6D6D6D"
-        keyboardType="email-address"
+        keyboardType="default"
+        value={name}
+        onChangeText={setName}
         style={{
           backgroundColor: "#f0f0f0",
           width: "80%",
@@ -64,10 +81,32 @@ const SignUp = () => {
           marginVertical: 10,
         }}
       />
+
+      {/* Input for Email */}
+      <TextInput
+        placeholder="Email"
+        placeholderTextColor="#6D6D6D"
+        keyboardType="email-address"
+        value={email}
+        onChangeText={setEmail}
+        style={{
+          backgroundColor: "#f0f0f0",
+          width: "80%",
+          height: 50,
+          color: "#0a0a0a",
+          fontWeight: "600",
+          borderRadius: 10,
+          paddingHorizontal: 10,
+          marginVertical: 10,
+        }}
+      />
+
+      {/* Input for password */}
       <TextInput
         placeholder="Password"
         placeholderTextColor="#6D6D6D"
-        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
         style={{
           backgroundColor: "#f0f0f0",
           width: "80%",
@@ -80,7 +119,7 @@ const SignUp = () => {
         }}
       />
       <TouchableOpacity
-        onPress={handleLogin}
+        onPress={handleSignUp}
         style={{
           backgroundColor: "#fccb37",
           width: "80%",
@@ -97,7 +136,7 @@ const SignUp = () => {
             textAlign: "center",
           }}
         >
-          Login
+          Sign Up
         </Text>
       </TouchableOpacity>
       <Text
@@ -106,17 +145,17 @@ const SignUp = () => {
           color: "black",
         }}
       >
-        Not a member?
+        Already a member?
       </Text>
-      <TouchableOpacity onPress={handleSignUp}>
+      <TouchableOpacity onPress={handleLogin}>
         <Text
           style={{
             color: "#2974D3",
             fontWeight: "500",
-            fontSize: 15,
+            fontSize: 16,
           }}
         >
-          Register Now
+          Login
         </Text>
       </TouchableOpacity>
     </View>
