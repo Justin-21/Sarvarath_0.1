@@ -1,6 +1,5 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { useNavigation } from "expo-router";
 
 const Welcome = ({ navigation }) => {
   return (

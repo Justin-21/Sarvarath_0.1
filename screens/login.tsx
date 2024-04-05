@@ -5,25 +5,49 @@ import {
   TouchableOpacity,
   TextInput,
   Button,
+  BackHandler,
 } from "react-native";
-import React, { useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [enabled, setEnabled] = useState(false);
+  var [count, setCount] = useState(0);
 
-  const handleLoginButton = () => {
-    if (!email && !password) {
-      setEnabled(true);
-    }
-    if (email && password) {
-      setEnabled(false);
-    }
-  };
+  useEffect(
+    () =>
+      navigation.addListener("beforeRemove", (e) => {
+        // Prevent default behavior of leaving the screen
+        e.preventDefault();
+
+        // Prompt the user before leaving the screen
+      }),
+    [navigation],
+  );
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        setCount(count++);
+        if (count > 1) {
+          setCount(0);
+          BackHandler.exitApp();
+        }
+        return true;
+      },
+    );
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", backHandler);
+    };
+  }, [navigation]);
 
   const handleLogin = () => {
+    if (!email || !password) {
+      alert("Please enter Email and Password");
+    }
     if (email && password) {
       navigation.navigate("Home");
     }
@@ -36,17 +60,17 @@ const Login = ({ navigation }) => {
   return (
     <>
       <View style={styles.container}>
-        <Ionicons
-          name={"logo-android"}
+        <FontAwesome5
+          name="bus"
           size={60}
-          color={"#1B1B1B"}
+          color="#ffd700"
         />
         <Text
           style={{
             fontSize: 30,
             color: "#1B1B1B",
             fontWeight: "400",
-            //   marginTop: 50,
+            marginTop: 30,
           }}
         >
           Welcome to
@@ -110,7 +134,6 @@ const Login = ({ navigation }) => {
             borderRadius: 10,
             marginVertical: 20,
           }}
-          disabled={enabled}
         >
           <Text
             style={{
@@ -137,7 +160,7 @@ const Login = ({ navigation }) => {
             style={{
               color: "#2974D3",
               fontWeight: "500",
-              fontSize: 15,
+              fontSize: 16,
             }}
           >
             Register Now
