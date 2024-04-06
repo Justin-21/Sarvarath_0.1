@@ -15,7 +15,7 @@ import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 
-const profile_picture = require("../assets/images/me.png");
+import placeholder_img from "../assets/images/placeholder.jpg";
 
 export default function Profile() {
   return (
@@ -24,7 +24,8 @@ export default function Profile() {
         <View style={styles.topSection}>
           <View style={styles.propicArea}>
             <Image
-              source={profile_picture}
+              source={placeholder_img}
+              alt="profile picture"
               style={styles.propic}
             />
           </View>

@@ -12,6 +12,7 @@ import { OnboardFlow } from "react-native-onboard";
 const OnboardingScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
       <OnboardFlow
         onDone={() => navigation.navigate("Login")}
         pages={[
@@ -71,7 +72,7 @@ const OnboardingScreen = ({ navigation }) => {
             ).uri,
           },
         ]}
-        type="bottom-sheet"
+        type="fullscreen"
       />
     </View>
   );

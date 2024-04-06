@@ -40,7 +40,7 @@ const Login = ({ navigation }) => {
     );
 
     return () => {
-      BackHandler.removeEventListener("hardwareBackPress", backHandler);
+      BackHandler.remove();
     };
   }, [navigation]);
 

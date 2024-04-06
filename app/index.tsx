@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
+import { View, Text, SafeAreaView, StatusBar, StyleSheet } from "react-native";
 
 import {
   HomePage,
@@ -16,6 +16,7 @@ import {
   createDrawerNavigator,
 } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
+import OnboardingScreen from "@/screens/onboardingScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -54,20 +55,12 @@ function DrawerNavigation() {
 }
 
 import { createStackNavigator } from "@react-navigation/stack";
-import OnboardingScreen from "@/screens/onboardingScreen";
 
 const Stack = createStackNavigator();
 
 function StackNav() {
   return (
-    <Stack.Navigator initialRouteName="Onboarding">
-      {/* <Stack.Screen
-        name="Welcome Page"
-        component={Welcome}
-        options={{
-          gestureEnabled: false,
-        }}
-      /> */}
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Onboarding"
         component={OnboardingScreen}
@@ -79,6 +72,7 @@ function StackNav() {
         name="Login"
         options={{
           headerTitle: "Log In",
+          headerLeft: () => <></>,
         }}
         component={Login}
       />
@@ -91,8 +85,24 @@ function StackNav() {
       />
       <Stack.Screen
         name="Home"
-        component={DrawerNavigation}
+        component={HomePage}
         options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerShown: true,
+          headerTitle: "Profile",
+        }}
+      />
+      <Stack.Screen
+        name="SearchBuses"
+        component={SearchBuses}
+        options={{
+          title: "Search",
           headerShown: false,
         }}
       />
