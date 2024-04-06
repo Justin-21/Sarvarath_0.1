@@ -71,7 +71,7 @@ const OnboardingScreen = ({ navigation }) => {
             ).uri,
           },
         ]}
-        type="bottom-sheet"
+        type={'fullscreen'}
       />
     </View>
   );
