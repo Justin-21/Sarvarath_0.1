@@ -6,9 +6,14 @@ import {
   TextInput,
   Button,
   BackHandler,
+  Alert,
+  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
+import { Image } from "react-native";
+
+import logo from "../assets/images/logo.png";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -20,8 +25,6 @@ const Login = ({ navigation }) => {
       navigation.addListener("beforeRemove", (e) => {
         // Prevent default behavior of leaving the screen
         e.preventDefault();
-
-        // Prompt the user before leaving the screen
       }),
     [navigation],
   );
@@ -31,9 +34,22 @@ const Login = ({ navigation }) => {
       "hardwareBackPress",
       () => {
         setCount(count++);
-        if (count > 1) {
-          setCount(0);
-          BackHandler.exitApp();
+        if (count > 0) {
+          // Prompt the user before leaving the screen
+          Alert.alert("Exit", "Are you sure you want to exit the app", [
+            {
+              text: "Cancel",
+              onPress: () => setCount(0),
+              style: "cancel",
+            },
+            {
+              text: "OK",
+              onPress: () => {
+                BackHandler.exitApp();
+                setCount(0);
+              },
+            },
+          ]);
         }
         return true;
       },
@@ -42,7 +58,7 @@ const Login = ({ navigation }) => {
     return () => {
       BackHandler.removeEventListener("hardwareBackPress", backHandler);
     };
-  }, [navigation]);
+  }, [navigation, count]);
 
   const handleLogin = () => {
     if (!email || !password) {
@@ -60,31 +76,49 @@ const Login = ({ navigation }) => {
   return (
     <>
       <View style={styles.container}>
-        <FontAwesome5
-          name="bus"
-          size={60}
-          color="#ffd700"
+        <Image
+          source={logo}
+          resizeMode="contain"
+          style={styles.logo}
         />
-        <Text
-          style={{
-            fontSize: 30,
-            color: "#1B1B1B",
-            fontWeight: "400",
-            marginTop: 30,
-          }}
-        >
-          Welcome to
-        </Text>
-        <Text
-          style={{
-            fontSize: 30,
-            color: "#1B1B1B",
-            fontWeight: "600",
-            marginBottom: 30,
-          }}
-        >
-          Sarvarath
-        </Text>
+        <View style={styles.topContainer}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: "#1B1B1B",
+              fontFamily: "SpaceMono",
+              letterSpacing: -1,
+            }}
+          >
+            Login to
+          </Text>
+          <Text
+            style={{
+              fontSize: 24,
+              color: "#1B1B1B",
+              fontWeight: "600",
+            }}
+          >
+            Sarvarath
+          </Text>
+        </View>
+
+        {/* Login with Google */}
+        <View style={styles.loginOption}>
+          <Text style={{ color: "#0d0d0d90" }}>Login with Google</Text>
+          <View style={styles.googleLogin}>
+            <Pressable>
+              <AntDesign
+                name="google"
+                size={24}
+                color="black"
+                style={styles.google}
+              />
+            </Pressable>
+          </View>
+
+          <Text>Or</Text>
+        </View>
 
         <TextInput
           placeholder="Email"
@@ -93,16 +127,7 @@ const Login = ({ navigation }) => {
           value={email}
           onChangeText={setEmail}
           //styling for email input
-          style={{
-            backgroundColor: "#f0f0f0",
-            width: "80%",
-            height: 50,
-            color: "#0a0a0a",
-            fontWeight: "600",
-            borderRadius: 10,
-            paddingHorizontal: 10,
-            marginVertical: 10,
-          }}
+          style={styles.inputBox}
         />
 
         <TextInput
@@ -113,16 +138,7 @@ const Login = ({ navigation }) => {
           value={password}
           onChangeText={setPassword}
           //styling for password input
-          style={{
-            backgroundColor: "#f0f0f0",
-            width: "80%",
-            height: 50,
-            color: "#0a0a0a",
-            fontWeight: "600",
-            borderRadius: 10,
-            paddingHorizontal: 10,
-            marginVertical: 10,
-          }}
+          style={styles.inputBox}
         />
 
         <TouchableOpacity
@@ -139,8 +155,8 @@ const Login = ({ navigation }) => {
             style={{
               color: "white",
               fontSize: 20,
-              fontWeight: "500",
               textAlign: "center",
+              fontWeight: "600",
             }}
           >
             Login
@@ -176,8 +192,44 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
+    alignItems: "center",
+    paddingTop: 120,
+  },
+  topContainer: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    gap: 10,
+    margin: 10,
+  },
+  logo: {
+    width: 120,
+    height: 60,
+  },
+  inputBox: {
+    backgroundColor: "#f0f0f0",
+    width: "80%",
+    height: 50,
+    color: "#0a0a0a",
+    fontWeight: "600",
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    marginVertical: 8,
+  },
+  loginOption: {
+    width: "80%",
     justifyContent: "center",
     alignItems: "center",
+  },
+  googleLogin: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    gap: 10,
+    margin: 10,
+    height: 50,
+    borderWidth: 1,
+    borderRadius: 10,
   },
 });
