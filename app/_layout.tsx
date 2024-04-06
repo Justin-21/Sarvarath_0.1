@@ -5,16 +5,28 @@ import {
   NavigationContainer,
   ThemeProvider,
 } from "@react-navigation/native";
-import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import { HomePage, Login, Profile, SearchBuses } from "@/screens";
-import { StatusBar, Text, View, StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { View } from "react-native";
 import { Stack } from "expo-router";
+
+import {
+  useFonts,
+  OpenSans_300Light,
+  OpenSans_400Regular,
+  OpenSans_500Medium,
+  OpenSans_600SemiBold,
+  OpenSans_700Bold,
+  OpenSans_800ExtraBold,
+  OpenSans_300Light_Italic,
+  OpenSans_400Regular_Italic,
+  OpenSans_500Medium_Italic,
+  OpenSans_600SemiBold_Italic,
+  OpenSans_700Bold_Italic,
+  OpenSans_800ExtraBold_Italic,
+} from "@expo-google-fonts/open-sans";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -31,6 +43,18 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
+    OpenSans_300Light,
+    OpenSans_400Regular,
+    OpenSans_500Medium,
+    OpenSans_600SemiBold,
+    OpenSans_700Bold,
+    OpenSans_800ExtraBold,
+    OpenSans_300Light_Italic,
+    OpenSans_400Regular_Italic,
+    OpenSans_500Medium_Italic,
+    OpenSans_600SemiBold_Italic,
+    OpenSans_700Bold_Italic,
+    OpenSans_800ExtraBold_Italic,
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
@@ -57,9 +81,8 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#f0f0f0" }}>
+    <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
       <Stack
-        initialRouteName="Login"
         screenOptions={{
           headerShown: false,
         }}

@@ -72,11 +72,7 @@ const OnboardingScreen = ({ navigation }) => {
             ).uri,
           },
         ]}
-<<<<<<< HEAD
         type="fullscreen"
-=======
-        type={'fullscreen'}
->>>>>>> f83050d17fe0cbffb6c7f93fbf6b6a699c9683a0
       />
     </View>
   );
