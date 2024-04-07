@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
-import { Image } from "react-native";
+import { Image, TouchableWithoutFeedback, Keyboard } from "react-native";
 
 import logo from "../assets/images/logo.png";
 
@@ -66,6 +66,8 @@ const Login = ({ navigation }) => {
     }
     if (email && password) {
       navigation.navigate("Home");
+      setEmail("");
+      setPassword("");
     }
   };
 
@@ -74,7 +76,7 @@ const Login = ({ navigation }) => {
   };
 
   return (
-    <>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <Image
           source={logo}
@@ -183,7 +185,7 @@ const Login = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
-    </>
+    </TouchableWithoutFeedback>
   );
 };
 

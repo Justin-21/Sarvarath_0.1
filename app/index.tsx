@@ -1,5 +1,12 @@
 import "react-native-gesture-handler";
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  Keyboard,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import {
   HomePage,
@@ -18,7 +25,8 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import OnboardingScreen from "@/screens/onboardingScreen";
-import LoginHeader from "@/components/loginHeader";
+import HomeHeader from "@/components/homeHeader";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 // const Drawer = createDrawerNavigator();
 
@@ -58,62 +66,64 @@ import LoginHeader from "@/components/loginHeader";
 
 const Stack = createStackNavigator();
 
-function StackNav() {
-  return (
-    <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen
-        name="Onboarding"
-        component={OnboardingScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Login"
-        options={{
-          headerShown: false,
-        }}
-        component={Login}
-      />
-      <Stack.Screen
-        name="SignUp"
-        options={{
-          headerShown: false,
-        }}
-        component={SignUp}
-      />
-      <Stack.Screen
-        name="Home"
-        component={HomePage}
-        options={({ navigation }) => ({
-          header: () => <LoginHeader navigation={navigation} />,
-        })}
-      />
-      <Stack.Screen
-        name="Profile"
-        component={Profile}
-        options={() => ({
-          headerShown: true,
-          headerTitle: "Profile",
-        })}
-      />
-      <Stack.Screen
-        name="SearchBuses"
-        component={SearchBuses}
-        options={{
-          title: "Search",
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
+// function StackNav() {
+//   return (
+
+//   );
+// }
 
 export default function App() {
   return (
     <NavigationContainer independent={true}>
       <StatusBar barStyle="dark-content" />
-      <StackNav />
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Onboarding"
+          component={OnboardingScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SignUp"
+          component={SignUp}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={HomePage}
+          options={({ navigation }) => ({
+            header: () => <HomeHeader navigation={navigation} />,
+          })}
+        />
+
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            headerShown: true,
+            headerTitle: "",
+          }}
+        />
+        <Stack.Screen
+          name="SearchBuses"
+          component={SearchBuses}
+          options={{
+            title: "Search",
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

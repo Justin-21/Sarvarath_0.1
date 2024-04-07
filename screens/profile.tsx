@@ -11,8 +11,12 @@ import {
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { StackActions } from "@react-navigation/native";
 
 export default function Profile({ navigation }) {
+  const router = useRouter();
+
   const handleLogout = () => {
     navigation.navigate("Login");
   };
