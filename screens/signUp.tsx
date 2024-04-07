@@ -7,6 +7,8 @@ import {
   ScrollView,
   Pressable,
   BackHandler,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import logo from "../assets/images/logo.png";
@@ -48,133 +50,135 @@ const SignUp = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.scroll}>
-      <View style={styles.container}>
-        <Image
-          source={logo}
-          resizeMode="contain"
-          style={styles.logo}
-        />
-        <View style={styles.topContainer}>
-          <Text
-            style={{
-              fontSize: 16,
-              color: "#1B1B1B",
-              fontFamily: "SpaceMono",
-              letterSpacing: -1,
-            }}
-          >
-            SignUp to
-          </Text>
-          <Text
-            style={{
-              fontSize: 24,
-              color: "#1B1B1B",
-              fontWeight: "600",
-            }}
-          >
-            Sarvarath
-          </Text>
-        </View>
-
-        {/* Sign up with Google */}
-        <View style={styles.loginOption}>
-          <Text style={{ color: "#0d0d0d90" }}>Sign up with Google</Text>
-          <View style={styles.googleLogin}>
-            <Pressable>
-              <AntDesign
-                name="google"
-                size={24}
-                color="black"
-                style={styles.google}
-              />
-            </Pressable>
-          </View>
-
-          <Text>Or</Text>
-        </View>
-
-        {/* Input for first name */}
-        <TextInput
-          placeholder="First Name"
-          placeholderTextColor="#6D6D6D"
-          keyboardType="default"
-          value={name}
-          onChangeText={setName}
-          style={styles.inputBox}
-        />
-
-        {/* Input for last name */}
-        <TextInput
-          placeholder="Last Name"
-          placeholderTextColor="#6D6D6D"
-          keyboardType="default"
-          value={name}
-          onChangeText={setName}
-          style={styles.inputBox}
-        />
-
-        {/* Input for Email */}
-        <TextInput
-          placeholder="Email"
-          placeholderTextColor="#6D6D6D"
-          keyboardType="email-address"
-          value={email}
-          onChangeText={setEmail}
-          style={styles.inputBox}
-        />
-
-        {/* Input for password */}
-        <TextInput
-          placeholder="Password"
-          placeholderTextColor="#6D6D6D"
-          value={password}
-          onChangeText={setPassword}
-          style={styles.inputBox}
-        />
-        <TouchableOpacity
-          onPress={handleSignUp}
-          style={{
-            backgroundColor: "#fccb37",
-            width: "80%",
-            padding: 10,
-            borderRadius: 10,
-            marginVertical: 20,
-          }}
-        >
-          <Text
-            style={{
-              color: "white",
-              fontSize: 20,
-              fontWeight: "500",
-              textAlign: "center",
-            }}
-          >
-            Sign Up
-          </Text>
-        </TouchableOpacity>
-
-        <View style={{ alignItems: "center", flexDirection: "row" }}>
-          <Text
-            style={{
-              fontSize: 14,
-              color: "black",
-            }}
-          >
-            Already a member?
-          </Text>
-          <TouchableOpacity onPress={handleLogin}>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <Image
+            source={logo}
+            resizeMode="contain"
+            style={styles.logo}
+          />
+          <View style={styles.topContainer}>
             <Text
               style={{
-                color: "#2974D3",
-                fontWeight: "500",
                 fontSize: 16,
+                color: "#1B1B1B",
+                fontFamily: "SpaceMono",
+                letterSpacing: -1,
               }}
             >
-              Login
+              SignUp to
+            </Text>
+            <Text
+              style={{
+                fontSize: 24,
+                color: "#1B1B1B",
+                fontWeight: "600",
+              }}
+            >
+              Sarvarath
+            </Text>
+          </View>
+
+          {/* Sign up with Google */}
+          <View style={styles.loginOption}>
+            <Text style={{ color: "#0d0d0d90" }}>Sign up with Google</Text>
+            <View style={styles.googleLogin}>
+              <Pressable>
+                <AntDesign
+                  name="google"
+                  size={24}
+                  color="black"
+                  style={styles.google}
+                />
+              </Pressable>
+            </View>
+
+            <Text>Or</Text>
+          </View>
+
+          {/* Input for first name */}
+          <TextInput
+            placeholder="First Name"
+            placeholderTextColor="#6D6D6D"
+            keyboardType="default"
+            value={name}
+            onChangeText={setName}
+            style={styles.inputBox}
+          />
+
+          {/* Input for last name */}
+          <TextInput
+            placeholder="Last Name"
+            placeholderTextColor="#6D6D6D"
+            keyboardType="default"
+            value={name}
+            onChangeText={setName}
+            style={styles.inputBox}
+          />
+
+          {/* Input for Email */}
+          <TextInput
+            placeholder="Email"
+            placeholderTextColor="#6D6D6D"
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+            style={styles.inputBox}
+          />
+
+          {/* Input for password */}
+          <TextInput
+            placeholder="Password"
+            placeholderTextColor="#6D6D6D"
+            value={password}
+            onChangeText={setPassword}
+            style={styles.inputBox}
+          />
+          <TouchableOpacity
+            onPress={handleSignUp}
+            style={{
+              backgroundColor: "#fccb37",
+              width: "80%",
+              padding: 10,
+              borderRadius: 10,
+              marginVertical: 20,
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+                fontSize: 20,
+                fontWeight: "500",
+                textAlign: "center",
+              }}
+            >
+              Sign Up
             </Text>
           </TouchableOpacity>
+
+          <View style={{ alignItems: "center", flexDirection: "row" }}>
+            <Text
+              style={{
+                fontSize: 14,
+                color: "black",
+              }}
+            >
+              Already a member?
+            </Text>
+            <TouchableOpacity onPress={handleLogin}>
+              <Text
+                style={{
+                  color: "#2974D3",
+                  fontWeight: "500",
+                  fontSize: 16,
+                }}
+              >
+                Login
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </ScrollView>
   );
 };

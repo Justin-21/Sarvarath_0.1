@@ -2,14 +2,16 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  TextInput,
   TouchableHighlight,
   View,
 } from "react-native";
 import React from "react";
-import { FontAwesome } from "@expo/vector-icons";
+import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { white } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const LoginHeader = ({ navigation }) => {
+const HomeHeader = ({ navigation }) => {
   return (
     <View style={styles.header}>
       <TouchableHighlight
@@ -24,27 +26,32 @@ const LoginHeader = ({ navigation }) => {
         />
       </TouchableHighlight>
 
-      <View style={styles.titleContainer}>
+      <View>
         <Text style={styles.title}>SARVARATH</Text>
       </View>
 
       <View style={styles.locationContainer}>
-        <Text>GKP</Text>
+        <Text style={styles.location}>GKP</Text>
+        <Entypo
+          name="chevron-small-down"
+          size={24}
+          color="black"
+        />
       </View>
     </View>
   );
 };
 
-export default LoginHeader;
+export default HomeHeader;
 
 const styles = StyleSheet.create({
   header: {
     margin: 0,
     padding: 15,
     paddingTop: 50,
-    alignItems: "center",
+    alignItems: "baseline",
     justifyContent: "space-between",
-    backgroundColor: "#ff0000",
+    backgroundColor: "#ffd700",
     width: "100%",
     height: 100,
     flexDirection: "row",
@@ -61,10 +68,18 @@ const styles = StyleSheet.create({
   icon: {
     borderRadius: 100,
   },
-  titleContainer: {},
+
   title: {
     fontSize: 20,
-    fontWeight: "600",
+    fontFamily: "Poppins_600SemiBold",
   },
-  locationContainer: {},
+
+  locationContainer: {
+    flexDirection: "row",
+  },
+
+  location: {
+    fontSize: 16,
+    fontFamily: "Poppins_500Medium",
+  },
 });
