@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 
-import { Link, Stack } from "expo-router";
 import { useEffect, useState } from "react";
 import { Button, Input } from "react-native-elements";
 import { AntDesign } from "@expo/vector-icons";
@@ -66,10 +65,17 @@ export default function HomePage({ navigation }) {
 
   const [search, setSearch] = useState<string>("");
 
+  const handleSearch = () => {
+    navigation.navigate("SearchBuses");
+  };
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <View style={styles.searchBarContainer}>
+        <TouchableOpacity
+          style={styles.searchBarContainer}
+          onPress={handleSearch}
+        >
           <AntDesign
             name="search1"
             size={18}
@@ -79,8 +85,11 @@ export default function HomePage({ navigation }) {
             placeholder="Search"
             style={styles.searchBar}
             placeholderTextColor="#00000080"
+            value={search}
+            onChangeText={setSearch}
+            onSubmitEditing={handleSearch}
           />
-        </View>
+        </TouchableOpacity>
 
         <ScrollView
           style={styles.scroll}
@@ -102,7 +111,7 @@ export default function HomePage({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#f0f0f0",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -113,10 +122,10 @@ const styles = StyleSheet.create({
     height: 50,
     overflow: "hidden",
     alignItems: "center",
-    marginTop: 6,
+    marginTop: 10,
     paddingHorizontal: 16,
     borderRadius: 50,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#e0e0e0",
   },
 
   searchBar: {
@@ -124,7 +133,7 @@ const styles = StyleSheet.create({
     width: "90%",
     fontSize: 14,
     paddingLeft: 20,
-    fontFamily: "Poppins_500Medium",
+    fontFamily: "Poppins_500",
   },
 
   scroll: {

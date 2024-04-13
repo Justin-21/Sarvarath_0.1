@@ -10,10 +10,12 @@ import {
   Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { Image, TouchableWithoutFeedback, Keyboard } from "react-native";
 
-import logo from "../assets/images/logo.png";
+const logo = require("../assets/images/logo.png");
+
+const googleIcon = require("../assets/images/googleIcon.png");
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -56,24 +58,24 @@ const Login = ({ navigation }) => {
     );
 
     return () => {
-      BackHandler.removeEventListener("hardwareBackPress", backHandler);
+      backHandler.remove();
     };
   }, [navigation, count]);
 
   const handleLogin = () => {
-    if (!email || !password) {
-      alert("Please enter Email and Password");
-    }
-    if (email && password) {
-      navigation.navigate("Home");
-      setEmail("");
-      setPassword("");
-    }
+    navigation.navigate("Login");
   };
 
-  const handleSignUp = () => {
-    navigation.navigate("SignUp");
-  };
+  // const handleLogin = () => {
+  //   if (!email || !password) {
+  //     alert("Please enter Email and Password");
+  //   }
+  //   if (email && password) {
+  //     navigation.navigate("Home");
+  //     setEmail("");
+  //     setPassword("");
+  //   }
+  // };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -88,102 +90,64 @@ const Login = ({ navigation }) => {
             style={{
               fontSize: 16,
               color: "#1B1B1B",
-              fontFamily: "SpaceMono",
-              letterSpacing: -1,
+              fontFamily: "Poppins_400",
             }}
           >
-            Login to
+            Welcome to
           </Text>
           <Text
             style={{
               fontSize: 24,
               color: "#1B1B1B",
-              fontWeight: "600",
+              fontFamily: "Poppins_600",
             }}
           >
             Sarvarath
           </Text>
         </View>
 
-        {/* Login with Google */}
         <View style={styles.loginOption}>
-          <Text style={{ color: "#0d0d0d90" }}>Login with Google</Text>
-          <View style={styles.googleLogin}>
-            <Pressable>
-              <AntDesign
-                name="google"
-                size={24}
-                color="black"
-                style={styles.google}
-              />
-            </Pressable>
-          </View>
-
-          <Text>Or</Text>
-        </View>
-
-        <TextInput
-          placeholder="Email"
-          placeholderTextColor="#6D6D6D"
-          keyboardType="email-address"
-          value={email}
-          onChangeText={setEmail}
-          //styling for email input
-          style={styles.inputBox}
-        />
-
-        <TextInput
-          placeholder="Password"
-          placeholderTextColor="#6D6D6D"
-          secureTextEntry //this is to hide the password entry
-          //
-          value={password}
-          onChangeText={setPassword}
-          //styling for password input
-          style={styles.inputBox}
-        />
-
-        <TouchableOpacity
-          onPress={handleLogin}
-          style={{
-            backgroundColor: "#fccb37",
-            width: "80%",
-            padding: 10,
-            borderRadius: 10,
-            marginVertical: 20,
-          }}
-        >
-          <Text
-            style={{
-              color: "white",
-              fontSize: 20,
-              textAlign: "center",
-              fontWeight: "600",
-            }}
+          {/* Login with Google */}
+          <TouchableOpacity
+            style={styles.googleLoginBtn}
+            onPress={handleLogin}
           >
-            Login
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                color: "#0a0a0a",
+                textAlign: "right",
+                fontFamily: "Poppins_500",
+                fontSize: 16,
+              }}
+            >
+              Login with
+            </Text>
+            <Image
+              source={googleIcon}
+              resizeMode="contain"
+              style={{
+                height: "50%",
+                width: "30%",
+              }}
+            />
+          </TouchableOpacity>
 
-        <Text
-          style={{
-            fontSize: 14,
-            color: "black",
-          }}
-        >
-          Not a member?
-        </Text>
-        <TouchableOpacity onPress={handleSignUp}>
           <Text
             style={{
-              color: "#2974D3",
-              fontWeight: "500",
+              fontFamily: "Poppins_600",
               fontSize: 16,
             }}
           >
-            Register Now
+            Or
           </Text>
-        </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={handleLogin}
+            style={styles.skipBtn}
+          >
+            <Text style={styles.skipText}>Continue without login</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -201,37 +165,45 @@ const styles = StyleSheet.create({
   topContainer: {
     flexDirection: "row",
     alignItems: "baseline",
-    gap: 10,
     margin: 10,
   },
   logo: {
     width: 120,
     height: 60,
   },
-  inputBox: {
-    backgroundColor: "#f0f0f0",
-    width: "80%",
-    height: 50,
-    color: "#0a0a0a",
-    fontWeight: "600",
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    marginVertical: 8,
-  },
+
   loginOption: {
-    width: "80%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  googleLogin: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
     width: "100%",
-    gap: 10,
-    margin: 10,
-    height: 50,
+    gap: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 60,
+  },
+
+  googleLoginBtn: {
+    flexDirection: "row",
     borderWidth: 1,
     borderRadius: 10,
+    width: "80%",
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  skipBtn: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#ffd700",
+    height: 50,
+    width: "80%",
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+  },
+  skipText: {
+    color: "black",
+    fontSize: 16,
+    textAlign: "center",
+    fontWeight: "600",
   },
 });
