@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Dimensions,
   SafeAreaView,
@@ -13,6 +13,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { StackActions } from "@react-navigation/native";
+import { BackHandler } from "react-native";
 
 export default function Profile({ navigation }) {
   const router = useRouter();
@@ -20,6 +21,20 @@ export default function Profile({ navigation }) {
   const handleLogout = () => {
     navigation.navigate("Login");
   };
+
+  useEffect(() => {
+    const backAction = () => {
+      navigation.navigate("Home");
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   return (
     <ScrollView>
@@ -144,7 +159,7 @@ export default function Profile({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f0f0f0",
     color: "black",
     alignItems: "center",
     justifyContent: "center",

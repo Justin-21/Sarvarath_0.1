@@ -7,6 +7,8 @@ import {
 } from "react-native";
 import React from "react";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
 
 interface busListProps {
   ETA: string;
@@ -23,6 +25,14 @@ const BusList: React.FC<busListProps> = ({
   busNumber,
   lastStop,
 }) => {
+  const router = useRouter();
+
+  const navigation = useNavigation();
+
+  const handleSearch = () => {
+    navigation.navigate("SearchBuses");
+  };
+
   return (
     <View style={styles.listContainer}>
       {/* left */}
@@ -55,7 +65,10 @@ const BusList: React.FC<busListProps> = ({
           <Text style={styles.content}>{nextStop}</Text>
         </View>
 
-        <TouchableOpacity style={[styles.trackBtn]}>
+        <TouchableOpacity
+          style={[styles.trackBtn]}
+          onPress={handleSearch}
+        >
           <FontAwesome6
             name="location-arrow"
             size={24}
@@ -63,7 +76,7 @@ const BusList: React.FC<busListProps> = ({
           />
           <Text
             style={{
-              fontFamily: "Poppins_600SemiBold",
+              fontFamily: "Poppins_600",
               fontSize: 14,
               color: "#58841e",
             }}
@@ -103,7 +116,7 @@ const styles = StyleSheet.create({
 
   contentBox: {
     backgroundColor: "#36363630",
-    fontFamily: "Poppins_500Medium",
+    fontFamily: "Poppins_500",
     borderRadius: 5,
     maxHeight: 60,
     padding: 10,
@@ -111,7 +124,7 @@ const styles = StyleSheet.create({
   },
 
   heading: {
-    fontFamily: "Poppins_500Medium",
+    fontFamily: "Poppins_500",
     fontSize: 12,
     color: "#00000090",
     lineHeight: 16,
@@ -119,7 +132,7 @@ const styles = StyleSheet.create({
 
   content: {
     color: "#000000",
-    fontFamily: "Poppins_600SemiBold",
+    fontFamily: "Poppins_600",
     fontSize: 14,
     lineHeight: 18,
   },

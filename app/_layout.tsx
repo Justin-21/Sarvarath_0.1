@@ -24,6 +24,7 @@ import {
   Poppins_800ExtraBold,
   Poppins_900Black,
 } from "@expo-google-fonts/poppins";
+import App from "@/App";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -40,15 +41,15 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    Poppins_100Thin,
-    Poppins_200ExtraLight,
-    Poppins_300Light,
-    Poppins_400Regular,
-    Poppins_500Medium,
-    Poppins_600SemiBold,
-    Poppins_700Bold,
-    Poppins_800ExtraBold,
-    Poppins_900Black,
+    Poppins_100: Poppins_100Thin,
+    Poppins_200: Poppins_200ExtraLight,
+    Poppins_300: Poppins_300Light,
+    Poppins_400: Poppins_400Regular,
+    Poppins_500: Poppins_500Medium,
+    Poppins_600: Poppins_600SemiBold,
+    Poppins_700: Poppins_700Bold,
+    Poppins_800: Poppins_800ExtraBold,
+    Poppins_900: Poppins_900Black,
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
@@ -75,12 +76,8 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      />
+    <View style={{ flex: 1, backgroundColor: "#f0f0f0" }}>
+      <Stack screenOptions={{ headerShown: false }}></Stack>
     </View>
   );
 }
