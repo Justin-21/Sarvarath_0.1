@@ -24,7 +24,6 @@ import {
   Poppins_800ExtraBold,
   Poppins_900Black,
 } from "@expo-google-fonts/poppins";
-import App from "@/App";
 
 export {
   // Catch any errors thrown by the Layout component.

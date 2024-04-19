@@ -18,6 +18,9 @@ import {
   Keyboard,
 } from "react-native";
 import BusList from "@/components/busList";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+
+import { GOOGLE_MAPS_API_KEY } from "@env";
 
 export default function HomePage({ navigation }) {
   var [count, setCount] = useState(0);
@@ -65,31 +68,41 @@ export default function HomePage({ navigation }) {
 
   const [search, setSearch] = useState<string>("");
 
-  const handleSearch = () => {
+  const handleSearch = (data, details) => {
     navigation.navigate("SearchBuses");
+    console.log(data);
+    console.log(details);
   };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.searchBarContainer}
-          onPress={handleSearch}
-        >
-          <AntDesign
-            name="search1"
-            size={18}
-            color="black"
-          />
-          <TextInput
-            placeholder="Search"
-            style={styles.searchBar}
-            placeholderTextColor="#00000080"
-            value={search}
-            onChangeText={setSearch}
-            onSubmitEditing={handleSearch}
-          />
-        </TouchableOpacity>
+        {/* search icon */}
+        {/* <AntDesign
+          name="search1"
+          size={18}
+          color="black"
+        /> */}
+
+        <GooglePlacesAutocomplete
+          styles={{
+            container: styles.searchBarContainer,
+            textInput: styles.searchBarText,
+          }}
+          minLength={2}
+          enablePoweredByContainer={false}
+          placeholder="Search for a location"
+          debounce={400}
+          onPress={(data, details = null) => {
+            handleSearch(data, details);
+          }}
+          fetchDetails={true}
+          nearbyPlacesAPI="GooglePlacesSearch"
+          query={{
+            key: GOOGLE_MAPS_API_KEY,
+            language: "en",
+          }}
+        />
 
         <ScrollView
           style={styles.scroll}
@@ -117,28 +130,23 @@ const styles = StyleSheet.create({
   },
 
   searchBarContainer: {
-    flexDirection: "row",
+    flex: 0,
     width: "90%",
-    height: 50,
-    overflow: "hidden",
-    alignItems: "center",
-    marginTop: 10,
-    paddingHorizontal: 16,
-    borderRadius: 50,
-    backgroundColor: "#e0e0e0",
+    marginVertical: 10,
   },
 
-  searchBar: {
-    color: "#000000",
-    width: "90%",
-    fontSize: 14,
-    paddingLeft: 20,
+  searchBarText: {
+    height: 50,
+    borderRadius: 30,
+    backgroundColor: "#e0e0e0",
+    paddingVertical: 0,
+    paddingHorizontal: 20,
+    fontSize: 16,
     fontFamily: "Poppins_500",
   },
 
   scroll: {
-    // alignItems: "center",
-    marginTop: 10,
+    marginTop: 0,
   },
 
   title: {

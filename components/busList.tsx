@@ -9,6 +9,7 @@ import React from "react";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useNavigation } from "@react-navigation/native";
+import MapView from "react-native-maps";
 
 interface busListProps {
   ETA: string;
@@ -29,15 +30,29 @@ const BusList: React.FC<busListProps> = ({
 
   const navigation = useNavigation();
 
-  const handleSearch = () => {
-    navigation.navigate("SearchBuses");
+  const handleMapTouch = () => {
+    navigation.navigate("MapScreen");
   };
 
   return (
     <View style={styles.listContainer}>
       {/* left */}
       <View style={styles.left}>
-        <Text style={[styles.map]}>MAPView</Text>
+        {/* map component */}
+        <View
+          style={[styles.map]}
+          onTouchStart={handleMapTouch}
+        >
+          <MapView
+            style={styles.mapbox}
+            initialRegion={{
+              latitude: 26.7605545,
+              longitude: 83.3731675,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
+        </View>
         <View style={[styles.eta, styles.contentBox]}>
           <Text style={styles.heading}>Time to reach</Text>
           <Text style={styles.content}>{ETA}</Text>
@@ -67,7 +82,7 @@ const BusList: React.FC<busListProps> = ({
 
         <TouchableOpacity
           style={[styles.trackBtn]}
-          onPress={handleSearch}
+          onPress={handleMapTouch}
         >
           <FontAwesome6
             name="location-arrow"
@@ -104,6 +119,11 @@ const styles = StyleSheet.create({
     gap: 5,
   },
 
+  mapbox: {
+    width: "100%",
+    height: "100%",
+  },
+
   left: {
     flex: 1,
     gap: 5,
@@ -115,7 +135,7 @@ const styles = StyleSheet.create({
   },
 
   contentBox: {
-    backgroundColor: "#36363630",
+    backgroundColor: "#f0f0f0",
     fontFamily: "Poppins_500",
     borderRadius: 5,
     maxHeight: 60,
