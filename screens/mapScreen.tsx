@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Marker } from "react-native-maps";
 
-const MapScreen = ({ navigation }) => {
+const MapScreen = (navigation: any) => {
   useEffect(() => {
     const backAction = () => {
       navigation.navigate("Home");

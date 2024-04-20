@@ -10,21 +10,20 @@ import {
   Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { AntDesign } from "@expo/vector-icons";
 import { Image, TouchableWithoutFeedback, Keyboard } from "react-native";
 
 const logo = require("../assets/images/logo.png");
 
 const googleIcon = require("../assets/images/googleIcon.png");
 
-const Login = ({ navigation }) => {
+const Login = ( navigation : any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   var [count, setCount] = useState(0);
 
   useEffect(
     () =>
-      navigation.addListener("beforeRemove", (e) => {
+      navigation.addListener("beforeRemove", (e: any) => {
         // Prevent default behavior of leaving the screen
         e.preventDefault();
       }),

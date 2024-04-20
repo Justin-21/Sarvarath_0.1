@@ -1,19 +1,11 @@
 import {
-  BackHandler,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
-  TextInput,
   View,
 } from "react-native";
 
-import { useEffect, useState } from "react";
-import { Button, Input } from "react-native-elements";
-import { AntDesign } from "@expo/vector-icons";
+// import { useState } from "react";
 import {
-  Alert,
-  TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
@@ -22,8 +14,8 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 
 import { GOOGLE_MAPS_API_KEY } from "@env";
 
-export default function HomePage({ navigation }) {
-  var [count, setCount] = useState(0);
+export default function HomePage( navigation: any ) {
+  // var [count, setCount] = useState(0);
 
   //function to close the app when user gestures back on screen
   // useEffect(
@@ -66,58 +58,74 @@ export default function HomePage({ navigation }) {
   //   };
   // }, [navigation, count]);
 
-  const [search, setSearch] = useState<string>("");
+  // const [search, setSearch] = useState<string>("");
 
-  const handleSearch = (data, details) => {
+  const handleSearch = (data: any, details: any) => {
     navigation.navigate("SearchBuses");
     console.log(data);
     console.log(details);
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.container}>
-        {/* search icon */}
-        {/* <AntDesign
+    <ScrollView>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          {/* search icon */}
+          {/* <AntDesign
           name="search1"
           size={18}
           color="black"
         /> */}
 
-        <GooglePlacesAutocomplete
-          styles={{
-            container: styles.searchBarContainer,
-            textInput: styles.searchBarText,
-          }}
-          minLength={2}
-          enablePoweredByContainer={false}
-          placeholder="Search for a location"
-          debounce={400}
-          onPress={(data, details = null) => {
-            handleSearch(data, details);
-          }}
-          fetchDetails={true}
-          nearbyPlacesAPI="GooglePlacesSearch"
-          query={{
-            key: GOOGLE_MAPS_API_KEY,
-            language: "en",
-          }}
-        />
-
-        <ScrollView
-          style={styles.scroll}
-          centerContent={true}
-        >
-          <BusList
-            ETA="5 min"
-            route="ABC - XYZ"
-            busNumber="UP53 XX XXXX"
-            lastStop="Rustampur"
-            nextStop="Amrud Mandi"
+          <GooglePlacesAutocomplete
+            styles={{
+              container: styles.searchBarContainer,
+              textInput: styles.searchBarText,
+            }}
+            minLength={2}
+            enablePoweredByContainer={false}
+            placeholder="Search for a location"
+            debounce={400}
+            onPress={(data, details = null) => {
+              handleSearch(data, details);
+            }}
+            fetchDetails={true}
+            nearbyPlacesAPI="GooglePlacesSearch"
+            query={{
+              key: GOOGLE_MAPS_API_KEY,
+              language: "en",
+            }}
           />
-        </ScrollView>
-      </View>
-    </TouchableWithoutFeedback>
+
+          <ScrollView
+            style={styles.scroll}
+            centerContent={true}
+          >
+            <BusList
+              ETA="5 min"
+              route="ABC - XYZ"
+              busNumber="UP53 XX XXXX"
+              lastStop="Rustampur"
+              nextStop="Amrud Mandi"
+            />
+            <BusList
+              ETA="8 min"
+              route="ABC - XYZ"
+              busNumber="UP53 XX XXXX"
+              lastStop="Medical College"
+              nextStop="Mugalaha"
+            />
+            <BusList
+              ETA="2 min"
+              route="ABC - XYZ"
+              busNumber="UP53 XX XXXX"
+              lastStop="Gorakhnath mandir"
+              nextStop="Dharamshala"
+            />
+          </ScrollView>
+        </View>
+      </TouchableWithoutFeedback>
+    </ScrollView>
   );
 }
 

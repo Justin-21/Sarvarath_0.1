@@ -28,7 +28,7 @@ const BusList: React.FC<busListProps> = ({
 }) => {
   const router = useRouter();
 
-  const navigation = useNavigation();
+  const navigation : any = useNavigation();
 
   const handleMapTouch = () => {
     navigation.navigate("MapScreen");

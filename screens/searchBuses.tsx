@@ -1,17 +1,7 @@
-import {
-  BackHandler,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-
-import { Stack } from "expo-router";
-import { CommonActions, StackActions } from "@react-navigation/native";
+import { BackHandler, StyleSheet, Text, View } from "react-native";
 import { useEffect } from "react";
 
-export default function SearchBuses({ navigation }) {
+export default function SearchBuses(navigation: any) {
   //function to handle the back gesture
   useEffect(() => {
     const backAction = () => {
@@ -21,7 +11,7 @@ export default function SearchBuses({ navigation }) {
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      backAction,
+      backAction
     );
 
     return () => backHandler.remove();

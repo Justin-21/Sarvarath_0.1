@@ -94,7 +94,7 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={HomePage}
-            options={({ navigation }) => ({
+            options={(navigation: any) => ({
               //header Left Button
               headerLeft: () => (
                 <TouchableOpacity

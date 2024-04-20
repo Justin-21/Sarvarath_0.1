@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { OnboardFlow } from "react-native-onboard";
 
-const OnboardingScreen = ({ navigation }) => {
+const OnboardingScreen = (navigation : any) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -33,7 +33,7 @@ const OnboardingScreen = ({ navigation }) => {
               <Text style={{ fontWeight: "400", fontSize: 18 }}>
                 Remove any hassle and find the bus to your destination,
               </Text>
-            ),
+            ) as any,
             imageUri: Image.resolveAssetSource(
               require("../assets/images/nearbyBus.png"),
             ).uri,
@@ -44,18 +44,18 @@ const OnboardingScreen = ({ navigation }) => {
               <Text style={{ fontWeight: "400", fontSize: 18 }}>
                 A convenient way to track the location of the buses
               </Text>
-            ),
+            ) as any,
             imageUri: Image.resolveAssetSource(
               require("../assets/images/trackBus.jpg"),
             ).uri,
           },
           {
             title: "Bus Info",
-            subtitle: (
+            subtitle: typeof(
               <Text style={{ fontWeight: "400", fontSize: 18 }}>
                 Get detailed information about the stops and routes of any bus
               </Text>
-            ),
+            )as any,
             imageUri: Image.resolveAssetSource(
               require("../assets/images/busDetails.jpg"),
             ).uri,
@@ -66,7 +66,7 @@ const OnboardingScreen = ({ navigation }) => {
               <Text style={{ fontWeight: "400", fontSize: 18 }}>
                 Login or Register to continue
               </Text>
-            ),
+            ) as any,
             imageUri: Image.resolveAssetSource(
               require("../assets/images/getStarted.jpg"),
             ).uri,
