@@ -63,7 +63,7 @@ const Login = ({ navigation }) => {
   }, [navigation, count]);
 
   const handleLogin = () => {
-    navigation.navigate("Login");
+    navigation.navigate("Home");
   };
 
   // const handleLogin = () => {

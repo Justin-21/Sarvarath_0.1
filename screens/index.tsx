@@ -2,6 +2,6 @@ import HomePage from "./homePage";
 import Profile from "./profile";
 import SearchBuses from "./searchBuses";
 import Login from "./login";
-import SignUp from "./signUp";
+import MapScreen from "./mapScreen";
 
-export { Profile, HomePage, SearchBuses, Login, SignUp };
+export { Profile, HomePage, SearchBuses, Login, MapScreen };

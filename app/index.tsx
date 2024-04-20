@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 
-import { HomePage, Login, Profile, SearchBuses } from "@/screens";
+import { HomePage, Login, MapScreen, Profile, SearchBuses } from "@/screens";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import OnboardingScreen from "@/screens/onboardingScreen";
@@ -128,19 +128,28 @@ export default function App() {
             })}
           />
           <Stack.Screen
-            name="Profile"
-            component={Profile}
-            options={{
-              headerShown: true,
-              headerTitle: "",
-            }}
-          />
-          <Stack.Screen
             name="SearchBuses"
             component={SearchBuses}
             options={{
               title: "Search",
               headerShown: true,
+            }}
+          />
+
+          <Stack.Screen
+            name="MapScreen"
+            component={MapScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              headerShown: true,
+              headerTitle: "",
             }}
           />
         </Stack.Navigator>
