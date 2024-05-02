@@ -7,28 +7,30 @@ import {
 } from "react-native";
 import React from "react";
 import { FontAwesome6 } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+
 import { useNavigation } from "@react-navigation/native";
 import MapView from "react-native-maps";
 
-interface busListProps {
+type busListProps = {
+  lat: number;
+  lng: number;
   ETA: string;
   nextStop: string;
   route: string;
   busNumber: string;
   lastStop: string;
-}
+};
 
-const BusList: React.FC<busListProps> = ({
+const BusList = ({
+  lat,
+  lng,
   ETA,
   nextStop,
   route,
   busNumber,
   lastStop,
-}) => {
-  const router = useRouter();
-
-  const navigation : any = useNavigation();
+}: busListProps) => {
+  const navigation = useNavigation();
 
   const handleMapTouch = () => {
     navigation.navigate("MapScreen");
@@ -39,15 +41,15 @@ const BusList: React.FC<busListProps> = ({
       {/* left */}
       <View style={styles.left}>
         {/* map component */}
-        <View
-          style={[styles.map]}
-          onTouchStart={handleMapTouch}
-        >
+        <View style={[styles.map]}>
           <MapView
+            scrollEnabled={false}
+            zoomEnabled={false}
+            onPress={handleMapTouch}
             style={styles.mapbox}
             initialRegion={{
-              latitude: 26.7605545,
-              longitude: 83.3731675,
+              latitude: lat || 26.7605545,
+              longitude: lng || 83.3731675,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
@@ -72,12 +74,23 @@ const BusList: React.FC<busListProps> = ({
 
         <View style={[styles.lastStop, styles.contentBox]}>
           <Text style={styles.heading}>Last Stop</Text>
-          <Text style={styles.content}>{lastStop}</Text>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="middle"
+            style={styles.content}
+          >
+            {lastStop}
+          </Text>
         </View>
 
         <View style={[styles.nextStop, styles.contentBox]}>
           <Text style={styles.heading}>Next Stop</Text>
-          <Text style={styles.content}>{nextStop}</Text>
+          <Text
+            numberOfLines={1}
+            style={styles.content}
+          >
+            {nextStop}
+          </Text>
         </View>
 
         <TouchableOpacity
@@ -108,7 +121,7 @@ export default BusList;
 
 const styles = StyleSheet.create({
   listContainer: {
-    width: Dimensions.get("screen").width - 40,
+    width: Dimensions.get("screen").width - 30,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -148,6 +161,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#00000090",
     lineHeight: 16,
+    height: "50%",
   },
 
   content: {
@@ -155,6 +169,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_600",
     fontSize: 14,
     lineHeight: 18,
+    height: "50%",
   },
 
   map: {

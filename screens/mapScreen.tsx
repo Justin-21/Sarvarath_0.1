@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Marker } from "react-native-maps";
 
-const MapScreen = (navigation: any) => {
+const MapScreen = ({ navigation }) => {
   useEffect(() => {
     const backAction = () => {
       navigation.navigate("Home");
@@ -22,7 +22,7 @@ const MapScreen = (navigation: any) => {
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.mapBox}>
         <MapView
-          mapType="standard"
+          showsUserLocation={true}
           userInterfaceStyle="dark"
           showsTraffic={true}
           loadingEnabled={true}

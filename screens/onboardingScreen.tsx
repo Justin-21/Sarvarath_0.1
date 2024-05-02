@@ -9,64 +9,47 @@ import {
 import React from "react";
 import { OnboardFlow } from "react-native-onboard";
 
-const OnboardingScreen = (navigation : any) => {
+const OnboardingScreen = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <OnboardFlow
         onDone={() => navigation.navigate("Login")}
+        subtitleStyle={styles.subTitle}
+        titleStyle={styles.title}
         pages={[
           {
             title: "Hello User!",
-            subtitle: (
-              <Text style={{ fontWeight: "400", fontSize: 18 }}>
-                Welcome to Sarvarath
-              </Text>
-            ),
+            subtitle: "Welcome To Sarvarath",
             imageUri: Image.resolveAssetSource(
               require("../assets/images/logo.png"),
             ).uri,
           },
           {
             title: "Find nearby Buses",
-            subtitle: (
-              <Text style={{ fontWeight: "400", fontSize: 18 }}>
-                Remove any hassle and find the bus to your destination,
-              </Text>
-            ) as any,
+            subtitle: "Remove any hassle and find the bus to your destination",
             imageUri: Image.resolveAssetSource(
               require("../assets/images/nearbyBus.png"),
             ).uri,
           },
           {
             title: "Track Buses",
-            subtitle: (
-              <Text style={{ fontWeight: "400", fontSize: 18 }}>
-                A convenient way to track the location of the buses
-              </Text>
-            ) as any,
+            subtitle: "A convenient way to track the location of the buses",
             imageUri: Image.resolveAssetSource(
               require("../assets/images/trackBus.jpg"),
             ).uri,
           },
           {
             title: "Bus Info",
-            subtitle: typeof(
-              <Text style={{ fontWeight: "400", fontSize: 18 }}>
-                Get detailed information about the stops and routes of any bus
-              </Text>
-            )as any,
+            subtitle:
+              "Get detailed information about the stops and routes of any bus",
             imageUri: Image.resolveAssetSource(
               require("../assets/images/busDetails.jpg"),
             ).uri,
           },
           {
             title: "Let's get you started!",
-            subtitle: (
-              <Text style={{ fontWeight: "400", fontSize: 18 }}>
-                Login or Register to continue
-              </Text>
-            ) as any,
+            subtitle: "Login to continue",
             imageUri: Image.resolveAssetSource(
               require("../assets/images/getStarted.jpg"),
             ).uri,
@@ -85,8 +68,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  lottie: {
-    width: 300,
-    height: 400,
+  title: {
+    fontSize: 28,
+    fontWeight: "300",
+    fontFamily: "Poppins_600",
+  },
+  subTitle: {
+    fontSize: 18,
+    fontFamily: "Poppins_400",
+    color: "#5a5a5a",
   },
 });
