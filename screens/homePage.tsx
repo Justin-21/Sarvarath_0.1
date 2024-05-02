@@ -1,20 +1,17 @@
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 
 // import { useState } from "react";
-import {
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
+import { TouchableWithoutFeedback, Keyboard, StatusBar } from "react-native";
 import BusList from "@/components/busList";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import { GOOGLE_MAPS_API_KEY } from "@env";
+import { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import busData from "@/constants/busData";
+import { Text } from "react-native";
 
-export default function HomePage( navigation: any ) {
+export default function HomePage({ navigation }: any) {
   // var [count, setCount] = useState(0);
 
   //function to close the app when user gestures back on screen
@@ -58,74 +55,67 @@ export default function HomePage( navigation: any ) {
   //   };
   // }, [navigation, count]);
 
-  // const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
 
-  const handleSearch = (data: any, details: any) => {
-    navigation.navigate("SearchBuses");
-    console.log(data);
-    console.log(details);
+  const handleSearch = (data: object, details: any) => {
+    navigation.navigate("SearchBuses", {
+      data: data,
+      coordinates: details.geometry.location,
+    });
+    // console.log(data);
+    // console.log(details);
+    // console.log(details.geometry.location);
   };
 
   return (
-    <ScrollView>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={styles.container}>
-          {/* search icon */}
-          {/* <AntDesign
+    <>
+      {/* <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> </TouchableWithoutFeedback> */}
+      <View style={styles.container}>
+        {/* search icon */}
+        {/* <AntDesign
           name="search1"
           size={18}
           color="black"
         /> */}
 
-          <GooglePlacesAutocomplete
-            styles={{
-              container: styles.searchBarContainer,
-              textInput: styles.searchBarText,
-            }}
-            minLength={2}
-            enablePoweredByContainer={false}
-            placeholder="Search for a location"
-            debounce={400}
-            onPress={(data, details = null) => {
-              handleSearch(data, details);
-            }}
-            fetchDetails={true}
-            nearbyPlacesAPI="GooglePlacesSearch"
-            query={{
-              key: GOOGLE_MAPS_API_KEY,
-              language: "en",
-            }}
-          />
+        <GooglePlacesAutocomplete
+          styles={{
+            container: styles.searchBarContainer,
+            textInput: styles.searchBarText,
+          }}
+          minLength={2}
+          enablePoweredByContainer={false}
+          placeholder="Search for a location"
+          debounce={400}
+          onPress={(data, details = null) => {
+            handleSearch(data, details);
+          }}
+          fetchDetails={true}
+          nearbyPlacesAPI="GooglePlacesSearch"
+          query={{
+            key: GOOGLE_MAPS_API_KEY,
+            language: "en",
+          }}
+        />
 
-          <ScrollView
-            style={styles.scroll}
-            centerContent={true}
-          >
+        <FlatList
+          data={busData}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.listContainer}
+          renderItem={({ item }) => (
             <BusList
-              ETA="5 min"
-              route="ABC - XYZ"
-              busNumber="UP53 XX XXXX"
-              lastStop="Rustampur"
-              nextStop="Amrud Mandi"
+              ETA={item.ETA}
+              route={item.route}
+              busNumber={item.busNumber}
+              lastStop={item.lastStop}
+              nextStop={item.nextStop}
             />
-            <BusList
-              ETA="8 min"
-              route="ABC - XYZ"
-              busNumber="UP53 XX XXXX"
-              lastStop="Medical College"
-              nextStop="Mugalaha"
-            />
-            <BusList
-              ETA="2 min"
-              route="ABC - XYZ"
-              busNumber="UP53 XX XXXX"
-              lastStop="Gorakhnath mandir"
-              nextStop="Dharamshala"
-            />
-          </ScrollView>
-        </View>
-      </TouchableWithoutFeedback>
-    </ScrollView>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
+    </>
   );
 }
 
@@ -134,7 +124,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f0f0f0",
     alignItems: "center",
-    justifyContent: "center",
   },
 
   searchBarContainer: {
@@ -153,18 +142,9 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_500",
   },
 
-  scroll: {
-    marginTop: 0,
-  },
-
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  listContainer: {
+    gap: 10,
+    width: "100%",
+    paddingVertical: 10,
   },
 });

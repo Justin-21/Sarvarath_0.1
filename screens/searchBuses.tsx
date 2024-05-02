@@ -1,28 +1,44 @@
 import { BackHandler, StyleSheet, Text, View } from "react-native";
 import { useEffect } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import BusList from "@/components/busList";
+import { useNavigation, useRouter } from "expo-router";
+import HomePage from "./homePage";
 
-export default function SearchBuses(navigation: any) {
+export default function SearchBuses({ navigation, route }) {
   //function to handle the back gesture
+
+  const { data } = route.params;
+  const { coordinates } = route.params;
+
   useEffect(() => {
     const backAction = () => {
-      navigation.navigate("Home");
+      navigation.goBack();
       return true;
     };
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      backAction
+      backAction,
     );
 
     return () => backHandler.remove();
   }, []);
 
   return (
-    <>
-      <View>
-        <Text style={{}}>Search Page</Text>
+    <SafeAreaView>
+      <View style={{ alignItems: "center" }}>
+        <BusList
+          lat={coordinates.lat}
+          lng={coordinates.lng}
+          ETA="5 min"
+          route="ABC - XYZ"
+          busNumber="UP53 XX XXXX"
+          lastStop="Rustampur"
+          nextStop="Amrud Mandi"
+        />
       </View>
-    </>
+    </SafeAreaView>
   );
 }
 

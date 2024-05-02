@@ -16,7 +16,7 @@ const logo = require("../assets/images/logo.png");
 
 const googleIcon = require("../assets/images/googleIcon.png");
 
-const Login = ( navigation : any) => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   var [count, setCount] = useState(0);

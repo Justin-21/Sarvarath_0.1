@@ -14,7 +14,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { BackHandler } from "react-native";
 
-export default function Profile(navigation: any) {
+export default function Profile({ navigation }) {
   const router = useRouter();
 
   const handleLogout = () => {
@@ -29,7 +29,7 @@ export default function Profile(navigation: any) {
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      backAction
+      backAction,
     );
 
     return () => backHandler.remove();
@@ -41,7 +41,11 @@ export default function Profile(navigation: any) {
         <SafeAreaView style={styles.safeArea}>
           <View style={styles.topSection}>
             <View style={styles.propicArea}>
-              <FontAwesome name="user" color="black" size={120} />
+              <FontAwesome
+                name="user"
+                color="black"
+                size={120}
+              />
             </View>
             <Text style={styles.name}>Harshit Tiwari</Text>
           </View>
@@ -55,7 +59,11 @@ export default function Profile(navigation: any) {
                 activeOpacity={0.5}
                 disabled
               >
-                <FontAwesome name="phone" size={24} color="black" />
+                <FontAwesome
+                  name="phone"
+                  size={24}
+                  color="black"
+                />
                 <Text style={styles.data}>Harshit</Text>
               </TouchableOpacity>
             </View>
@@ -68,7 +76,11 @@ export default function Profile(navigation: any) {
                 activeOpacity={0.5}
                 disabled
               >
-                <FontAwesome name="phone" size={24} color="black" />
+                <FontAwesome
+                  name="phone"
+                  size={24}
+                  color="black"
+                />
                 <Text style={styles.data}>Tiwari</Text>
               </TouchableOpacity>
             </View>
@@ -81,7 +93,11 @@ export default function Profile(navigation: any) {
                 activeOpacity={0.5}
                 disabled
               >
-                <FontAwesome name="phone" size={24} color="black" />
+                <FontAwesome
+                  name="phone"
+                  size={24}
+                  color="black"
+                />
                 <Text style={styles.data}>harshit.tiwari0710</Text>
               </TouchableOpacity>
             </View>
@@ -94,7 +110,11 @@ export default function Profile(navigation: any) {
                 activeOpacity={0.5}
                 disabled
               >
-                <FontAwesome name="phone" size={24} color="black" />
+                <FontAwesome
+                  name="phone"
+                  size={24}
+                  color="black"
+                />
                 <Text style={styles.data}>+91 9876543210</Text>
               </TouchableOpacity>
             </View>
@@ -107,14 +127,25 @@ export default function Profile(navigation: any) {
                 activeOpacity={0.5}
                 disabled
               >
-                <MaterialIcons name="email" size={24} color="black" />
+                <MaterialIcons
+                  name="email"
+                  size={24}
+                  color="black"
+                />
                 <Text style={styles.data}>abcd123@gmail.com</Text>
               </TouchableOpacity>
             </View>
 
             {/* Logout Button */}
-            <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
-              <SimpleLineIcons name="logout" size={24} color="black" />
+            <TouchableOpacity
+              style={styles.logoutBtn}
+              onPress={handleLogout}
+            >
+              <SimpleLineIcons
+                name="logout"
+                size={24}
+                color="black"
+              />
               <Text style={{ fontWeight: "500", fontSize: 16 }}>Logout</Text>
             </TouchableOpacity>
           </View>
