@@ -33,6 +33,7 @@ const BusList = ({
   const navigation = useNavigation();
 
   const handleMapTouch = () => {
+    console.log("success");
     navigation.navigate("MapScreen");
   };
 
@@ -41,13 +42,18 @@ const BusList = ({
       {/* left */}
       <View style={styles.left}>
         {/* map component */}
-        <View style={[styles.map]}>
+        <View
+          style={[styles.map]}
+          onTouchEnd={handleMapTouch}
+          onTouchMove={() => {}}
+        >
           <MapView
             scrollEnabled={false}
+            loadingEnabled={true}
             zoomEnabled={false}
             onPress={handleMapTouch}
             style={styles.mapbox}
-            initialRegion={{
+            region={{
               latitude: lat || 26.7605545,
               longitude: lng || 83.3731675,
               latitudeDelta: 0.0922,
