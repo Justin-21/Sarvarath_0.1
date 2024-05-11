@@ -1,61 +1,39 @@
-import { FlatList, ScrollView, StyleSheet, View } from "react-native";
+import { Alert, FlatList, ScrollView, StyleSheet, View } from "react-native";
 
-// import { useState } from "react";
-import { TouchableWithoutFeedback, Keyboard, StatusBar } from "react-native";
 import BusList from "@/components/busList";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import { GOOGLE_MAPS_API_KEY } from "@env";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import busData from "@/constants/busData";
 import { Text } from "react-native";
+import * as Location from "expo-location";
 
-export default function HomePage({ navigation }: any) {
-  // var [count, setCount] = useState(0);
-
-  //function to close the app when user gestures back on screen
-  // useEffect(
-  //   () =>
-  //     navigation.addListener("beforeRemove", (e) => {
-  //       // Prevent default behavior of leaving the screen
-  //       e.preventDefault();
-  //     }),
-  //   [navigation],
-  // );
-
-  // useEffect(() => {
-  //   const backHandler = BackHandler.addEventListener(
-  //     "hardwareBackPress",
-  //     () => {
-  //       setCount(count++);
-  //       if (count > 0) {
-  //         // Prompt the user before leaving the screen
-  //         Alert.alert("Exit", "Are you sure you want to exit the app", [
-  //           {
-  //             text: "Cancel",
-  //             onPress: () => setCount(0),
-  //             style: "cancel",
-  //           },
-  //           {
-  //             text: "OK",
-  //             onPress: () => {
-  //               BackHandler.exitApp();
-  //               setCount(0);
-  //             },
-  //           },
-  //         ]);
-  //       }
-  //       return true;
-  //     },
-  //   );
-
-  //   return () => {
-  //     BackHandler.removeEventListener("hardwareBackPress", backHandler);
-  //   };
-  // }, [navigation, count]);
-
+export default function HomePage({ navigation }) {
   const [search, setSearch] = useState<string>("");
+  const [location, setLocation] = useState<Location.LocationObject>();
+  const [errorMsg, setErrorMsg] = useState<string>("");
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      console.log(location);
+    })();
+  }, []);
+
+  if (errorMsg) {
+    console.log(errorMsg);
+  } else if (location) {
+    console.log(JSON.stringify(location));
+  }
 
   const handleSearch = (data: object, details: any) => {
     navigation.navigate("SearchBuses", {
@@ -71,13 +49,6 @@ export default function HomePage({ navigation }: any) {
     <>
       {/* <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> </TouchableWithoutFeedback> */}
       <View style={styles.container}>
-        {/* search icon */}
-        {/* <AntDesign
-          name="search1"
-          size={18}
-          color="black"
-        /> */}
-
         <GooglePlacesAutocomplete
           styles={{
             container: styles.searchBarContainer,

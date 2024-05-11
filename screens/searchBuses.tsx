@@ -2,8 +2,6 @@ import { BackHandler, StyleSheet, Text, View } from "react-native";
 import { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BusList from "@/components/busList";
-import { useNavigation, useRouter } from "expo-router";
-import HomePage from "./homePage";
 
 export default function SearchBuses({ navigation, route }) {
   //function to handle the back gesture
@@ -19,7 +17,7 @@ export default function SearchBuses({ navigation, route }) {
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      backAction,
+      backAction
     );
 
     return () => backHandler.remove();

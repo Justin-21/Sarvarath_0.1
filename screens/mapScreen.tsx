@@ -12,7 +12,7 @@ const MapScreen = ({ navigation }) => {
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      backAction,
+      backAction
     );
 
     return () => backHandler.remove();
@@ -39,7 +39,7 @@ const MapScreen = ({ navigation }) => {
               latitude: 26.7605545,
               longitude: 83.3731675,
             }}
-            title="Gorakhpur"
+            title="Bus No. XX"
             description="UP53 XX XXXX"
           />
         </MapView>
