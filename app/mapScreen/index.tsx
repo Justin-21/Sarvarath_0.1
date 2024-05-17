@@ -2,11 +2,12 @@ import { BackHandler, StyleSheet, Text, View } from "react-native";
 import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Marker } from "react-native-maps";
+import { router } from "expo-router";
 
-const MapScreen = ({ navigation }) => {
+const MapScreen = () => {
   useEffect(() => {
     const backAction = () => {
-      navigation.navigate("Home");
+      router.back();
       return true;
     };
 

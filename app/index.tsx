@@ -1,202 +1,148 @@
-import "react-native-gesture-handler";
-import {
-  Keyboard,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, FlatList, ScrollView, StyleSheet, View } from "react-native";
 
-import { HomePage, Login, MapScreen, Profile, SearchBuses } from "@/screens";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import OnboardingScreen from "@/screens/onboardingScreen";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Entypo, FontAwesome } from "@expo/vector-icons";
-import { useState } from "react";
+import BusList from "@/components/busList";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
-import DropDownPicker from "react-native-dropdown-picker";
-
-function Dropdown() {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "GKP", value: "Gorakhpur" },
-    { label: "VNS", value: "Varanasi" },
-    { label: "DEL", value: "Delhi" },
-    { label: "MUM", value: "Mumbai" },
-  ]);
-
-  return (
-    <DropDownPicker
-      open={open}
-      value={value}
-      items={items}
-      placeholder="City"
-      setOpen={setOpen}
-      setValue={setValue}
-      setItems={setItems}
-      showArrowIcon={false}
-      showTickIcon={false}
-      textStyle={{
-        textAlign: "right",
-        fontFamily: "Poppins_600",
-      }}
-      listItemLabelStyle={{
-        textAlign: "left",
-      }}
-      style={{
-        borderWidth: 0,
-        backgroundColor: "transparent",
-      }}
-      selectedItemContainerStyle={{
-        backgroundColor: "#ffd70080",
-      }}
-      selectedItemLabelStyle={{
-        fontFamily: "Poppins_700",
-      }}
-      dropDownContainerStyle={{
-        borderWidth: 0,
-      }}
-      listItemContainerStyle={{
-        borderWidth: 0,
-      }}
-    />
-  );
-}
-
-const Stack = createStackNavigator();
+import { GOOGLE_MAPS_API_KEY } from "@env";
+import { useEffect, useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import busData from "@/constants/busData";
+import { Text } from "react-native";
+import * as Location from "expo-location";
+import { router } from "expo-router";
 
 export default function App() {
+  const [search, setSearch] = useState<string>("");
+  const [userLocation, setUserLocation] = useState<Location.LocationObject>();
+  const [errorMsg, setErrorMsg] = useState<string>("");
+
+  useEffect(() => {
+    try {
+      const getLocation = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+
+        if (status !== "granted") {
+          console.log("Permission to access location was denied");
+          return;
+        }
+
+        let location = await Location.getCurrentPositionAsync({});
+        setUserLocation(location);
+        console.log(JSON.stringify(userLocation));
+      };
+
+      getLocation();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [setUserLocation]);
+
+  // if (errorMsg) {
+  //   console.log(errorMsg);
+  // }
+
+  const handleSearch = (data: object, details: any) => {
+    if (details && details.geometry && details.geometry.location) {
+      // const coordinates: Coordinates = {
+      //   latitude: details.geometry.location.lat,
+      //   longitude: details.geometry.location.lng,
+      // };
+
+      router.navigate({
+        pathname: "/searchBuses/",
+        params: {
+          data: data,
+          latitude: details.geometry.location.lat,
+          longitude: details.geometry.location.lng,
+        },
+      });
+      // navigation.navigate("SearchBuses", {
+      // data: {
+      //   description: data.description,
+      // place_id: data.place_id,
+      // },
+      //   coordinates: details.geometry.location,
+      // });
+      // console.log(data);
+      // console.log(JSON.stringify(details));
+      // console.log(details.geometry.location);
+    } else {
+      console.log("Coordinates not available");
+    }
+  };
+
   return (
-    <SafeAreaProvider>
-      <NavigationContainer independent={true}>
-        <StatusBar barStyle="dark-content" />
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Onboarding"
-            component={OnboardingScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
+    <>
+      {/* <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> </TouchableWithoutFeedback> */}
+      <View style={styles.container}>
+        <GooglePlacesAutocomplete
+          styles={{
+            container: styles.searchBarContainer,
+            textInput: styles.searchBarText,
+          }}
+          minLength={2}
+          enablePoweredByContainer={false}
+          placeholder="Search for a location"
+          debounce={400}
+          onPress={(data, details = null) => {
+            handleSearch(data, details);
+          }}
+          fetchDetails={true}
+          nearbyPlacesAPI="GooglePlacesSearch"
+          query={{
+            key: GOOGLE_MAPS_API_KEY,
+            language: "en",
+          }}
+        />
 
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{
-              headerShown: false,
-            }}
-          />
-
-          <Stack.Screen
-            name="Home"
-            component={HomePage}
-            options={({ navigation }) => ({
-              //header Left Button
-              headerLeft: () => (
-                <TouchableOpacity
-                  style={styles.iconContainer}
-                  activeOpacity={0.7}
-                  onPress={() => navigation.navigate("Profile")}
-                >
-                  <FontAwesome
-                    name="user"
-                    color="black"
-                    size={16}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-              ),
-
-              //header Title
-              headerTitle: "SARVARATH",
-              headerStyle: {
-                backgroundColor: "#ffd700",
-              },
-              headerTitleStyle: styles.title,
-              headerTitleAlign: "center",
-
-              //header Right Button
-              headerRight: () => (
-                <View style={styles.locationContainer}>
-                  <Dropdown />
-                </View>
-              ),
-            })}
-          />
-          <Stack.Screen
-            name="SearchBuses"
-            component={SearchBuses}
-            options={{
-              title: "Search",
-              headerShown: true,
-            }}
-          />
-
-          <Stack.Screen
-            name="MapScreen"
-            component={MapScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-
-          <Stack.Screen
-            name="Profile"
-            component={Profile}
-            options={{
-              headerShown: true,
-              headerTitle: "",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+        <FlatList
+          data={busData}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.listContainer}
+          renderItem={({ item }) => (
+            <BusList
+              ETA={item.ETA}
+              route={item.route}
+              busNumber={item.busNumber}
+              lastStop={item.lastStop}
+              nextStop={item.nextStop}
+            />
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  scroll: {
-    alignItems: "center",
-  },
   container: {
     flex: 1,
+    height: "100%",
+    backgroundColor: "#f0f0f0",
     alignItems: "center",
-    justifyContent: "center",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
   },
 
-  iconContainer: {
-    marginLeft: 20,
-    backgroundColor: "white",
-    borderRadius: 100,
-    alignItems: "center",
-    justifyContent: "center",
-    width: 30,
-    height: 30,
-  },
-  icon: {
-    borderRadius: 100,
+  searchBarContainer: {
+    flex: 0,
+    width: "90%",
+    marginTop: 10,
   },
 
-  title: {
-    fontSize: 20,
-    fontFamily: "Poppins_700",
-  },
-
-  locationContainer: {
-    flexDirection: "row",
-    marginRight: 20,
-  },
-  location: {
-    fontSize: 14,
+  searchBarText: {
+    height: 50,
+    borderRadius: 30,
+    backgroundColor: "#e0e0e0",
+    paddingVertical: 0,
+    paddingHorizontal: 20,
+    fontSize: 16,
     fontFamily: "Poppins_500",
+  },
+
+  listContainer: {
+    gap: 10,
+    width: "100%",
+    paddingBottom: 30,
   },
 });

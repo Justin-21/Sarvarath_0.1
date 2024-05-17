@@ -1,17 +1,27 @@
-import { BackHandler, StyleSheet, Text, View } from "react-native";
+import { BackHandler, StyleSheet, View } from "react-native";
 import { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BusList from "@/components/busList";
+import { router } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 
-export default function SearchBuses({ navigation, route }) {
+interface Coordinates {
+  lat: number;
+  lng: number;
+}
+
+export default function SearchBuses() {
   //function to handle the back gesture
 
-  const { data } = route.params;
-  const { coordinates } = route.params;
+  const { data, latitude, longitude } = useLocalSearchParams();
+  // const coordinatesObject = coordinates as Coordinates;
+
+  // const lat = coordinatesObject?.lat;
+  // const lng = coordinatesObject?.lng;
 
   useEffect(() => {
     const backAction = () => {
-      navigation.goBack();
+      router.back();
       return true;
     };
 
@@ -21,14 +31,17 @@ export default function SearchBuses({ navigation, route }) {
     );
 
     return () => backHandler.remove();
-  }, []);
+  }, [router]);
+
+  // console.log(coordinatesObject);
+  console.log(latitude, longitude);
 
   return (
     <SafeAreaView>
       <View style={{ alignItems: "center" }}>
         <BusList
-          lat={coordinates.lat}
-          lng={coordinates.lng}
+          lat={Number(latitude)}
+          lng={Number(longitude)}
           ETA="5 min"
           route="ABC - XYZ"
           busNumber="UP53 XX XXXX"
