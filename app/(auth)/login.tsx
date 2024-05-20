@@ -11,15 +11,17 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Image, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { router, useNavigation } from "expo-router";
 
-const logo = require("../assets/images/logo.png");
+const logo = require("../../assets/images/logo.png");
 
-const googleIcon = require("../assets/images/googleIcon.png");
+const googleIcon = require("../../assets/images/googleIcon.png");
 
-const Login = ({ navigation }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   var [count, setCount] = useState(0);
+  const navigation = useNavigation();
 
   useEffect(
     () =>
@@ -27,7 +29,7 @@ const Login = ({ navigation }) => {
         // Prevent default behavior of leaving the screen
         e.preventDefault();
       }),
-    [navigation],
+    [navigation]
   );
 
   useEffect(() => {
@@ -53,7 +55,7 @@ const Login = ({ navigation }) => {
           ]);
         }
         return true;
-      },
+      }
     );
 
     return () => {
@@ -62,7 +64,7 @@ const Login = ({ navigation }) => {
   }, [navigation, count]);
 
   const handleLogin = () => {
-    navigation.navigate("Home");
+    router.navigate("/home");
   };
 
   // const handleLogin = () => {

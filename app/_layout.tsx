@@ -1,16 +1,11 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-  DarkTheme,
-  DefaultTheme,
-  NavigationContainer,
-  ThemeProvider,
-} from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
-import { View } from "react-native";
-import { Stack } from "expo-router";
+import { Text, TouchableOpacity, View } from "react-native";
+import { Stack, router } from "expo-router";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 import {
   useFonts,
@@ -24,6 +19,9 @@ import {
   Poppins_800ExtraBold,
   Poppins_900Black,
 } from "@expo-google-fonts/poppins";
+import { StyleSheet } from "react-native";
+import DropDownPicker from "react-native-dropdown-picker";
+import DropDown from "@/components/DropDown";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -32,7 +30,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
+  initialRouteName: "index",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -56,15 +54,13 @@ export default function RootLayout() {
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
-  }, [error]);
 
-  useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [error, loaded]);
 
-  if (!loaded) {
+  if (!loaded && !error) {
     return null;
   }
 
@@ -75,8 +71,124 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#f0f0f0" }}>
-      <Stack screenOptions={{ headerShown: false }}></Stack>
-    </View>
+    <>
+      <Stack
+        screenOptions={{
+          statusBarStyle: "dark",
+        }}
+      >
+        <Stack.Screen
+          name="onboardingScreen"
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="(auth)"
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="home/index"
+          options={{
+            //header Left Button
+            statusBarHidden: false,
+            statusBarStyle: "dark",
+            statusBarColor: "#ffd700",
+            headerShown: true,
+            header: () => {
+              return (
+                <View style={styles.header}>
+                  <TouchableOpacity
+                    style={styles.iconContainer}
+                    activeOpacity={0.7}
+                    onPress={() => router.navigate("profile")}
+                  >
+                    <FontAwesome5
+                      name="user-alt"
+                      color="black"
+                      size={20}
+                      style={styles.icon}
+                    />
+                  </TouchableOpacity>
+
+                  <View style={styles.titleContainer}>
+                    <Text style={styles.title}>SARVARATH</Text>
+                  </View>
+
+                  <View style={styles.dropDown}>
+                    <DropDown />
+                  </View>
+                </View>
+              );
+            },
+          }}
+        />
+
+        <Stack.Screen
+          name="searchBuses/index"
+          options={{
+            title: "Search",
+            headerShown: true,
+          }}
+        />
+
+        <Stack.Screen
+          name="mapScreen/index"
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  header: {
+    width: "100%",
+    backgroundColor: "#ffd700",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    textAlign: "center",
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+  },
+
+  iconContainer: {
+    flex: 1 / 3,
+    alignItems: "flex-end",
+    justifyContent: "center",
+    height: 40,
+    backgroundColor: "white",
+    borderTopRightRadius: 100,
+    borderBottomRightRadius: 100,
+  },
+  icon: {
+    marginRight: 20,
+    height: "100%",
+    textAlignVertical: "center",
+  },
+
+  titleContainer: {
+    flex: 1,
+  },
+  title: {
+    fontSize: 18,
+    fontFamily: "Poppins_700",
+    textAlign: "center",
+  },
+
+  dropDown: {
+    flex: 1 / 3,
+    // backgroundColor: "red",
+    marginRight: 10,
+  },
+});

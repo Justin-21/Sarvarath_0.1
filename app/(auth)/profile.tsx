@@ -11,25 +11,23 @@ import {
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
 import { BackHandler } from "react-native";
+import { router } from "expo-router";
 
-export default function Profile({ navigation }) {
-  const router = useRouter();
-
+export default function Profile() {
   const handleLogout = () => {
-    navigation.navigate("Login");
+    router.navigate("Login");
   };
 
   useEffect(() => {
     const backAction = () => {
-      navigation.navigate("Home");
+      router.navigate("home");
       return true;
     };
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      backAction,
+      backAction
     );
 
     return () => backHandler.remove();
