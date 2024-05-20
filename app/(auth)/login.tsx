@@ -18,8 +18,6 @@ const logo = require("../../assets/images/logo.png");
 const googleIcon = require("../../assets/images/googleIcon.png");
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   var [count, setCount] = useState(0);
   const navigation = useNavigation();
 
@@ -63,29 +61,16 @@ const Login = () => {
     };
   }, [navigation, count]);
 
-  const handleLogin = () => {
+  const handleLoginSkip = () => {
     router.navigate("/");
   };
 
-  // const handleLogin = () => {
-  //   if (!email || !password) {
-  //     alert("Please enter Email and Password");
-  //   }
-  //   if (email && password) {
-  //     navigation.navigate("Home");
-  //     setEmail("");
-  //     setPassword("");
-  //   }
-  // };
+  const handleGoogleLogin = () => {};
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <Image
-          source={logo}
-          resizeMode="contain"
-          style={styles.logo}
-        />
+        <Image source={logo} resizeMode="contain" style={styles.logo} />
         <View style={styles.topContainer}>
           <Text
             style={{
@@ -111,7 +96,7 @@ const Login = () => {
           {/* Login with Google */}
           <TouchableOpacity
             style={styles.googleLoginBtn}
-            onPress={handleLogin}
+            onPress={handleGoogleLogin}
           >
             <Text
               style={{
@@ -142,10 +127,7 @@ const Login = () => {
             Or
           </Text>
 
-          <TouchableOpacity
-            onPress={handleLogin}
-            style={styles.skipBtn}
-          >
+          <TouchableOpacity onPress={handleLoginSkip} style={styles.skipBtn}>
             <Text style={styles.skipText}>Continue without login</Text>
           </TouchableOpacity>
         </View>
