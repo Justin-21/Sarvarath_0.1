@@ -33,9 +33,6 @@ export default function SearchBuses() {
     return () => backHandler.remove();
   }, [router]);
 
-  // console.log(coordinatesObject);
-  console.log(latitude, longitude);
-
   return (
     <SafeAreaView>
       <View style={{ alignItems: "center" }}>
