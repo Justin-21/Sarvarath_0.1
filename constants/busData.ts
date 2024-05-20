@@ -10,23 +10,16 @@ const busData = [
   {
     ETA: "5 min",
     route: "ABC - DEF",
-    busNumber: "UP53 XX XXXX",
+    busNumber: "UP53 XY 0001",
     lastStop: "Rustampur",
     nextStop: "Amrud Mandi",
   },
   {
     ETA: "8 min",
     route: "GHI - JKL",
-    busNumber: "UP53 XX XXXX",
+    busNumber: "UP53 XY 0002",
     lastStop: "Medical College",
     nextStop: "Mugalaha",
-  },
-  {
-    ETA: "2 min",
-    route: "MNO - PQR",
-    busNumber: "UP53 XX XXXX",
-    lastStop: "Gorakhnath mandir",
-    nextStop: "Dharamshala",
   },
 ];
 

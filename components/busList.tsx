@@ -64,7 +64,7 @@ const BusList = ({
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
-          />
+          ></MapView>
         </View>
         <View style={[styles.eta, styles.contentBox]}>
           <Text style={styles.heading}>Time to reach</Text>
