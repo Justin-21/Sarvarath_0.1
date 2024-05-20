@@ -73,6 +73,7 @@ function RootLayoutNav() {
   return (
     <>
       <Stack
+        initialRouteName="onboardingScreen"
         screenOptions={{
           statusBarStyle: "dark",
         }}
