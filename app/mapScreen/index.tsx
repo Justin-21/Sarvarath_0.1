@@ -4,7 +4,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Marker } from "react-native-maps";
 import { router } from "expo-router";
 
-const MapScreen = () => {
+type busListProps = {
+  lat?: number;
+  lng?: number;
+};
+
+const MapScreen = ({ lat, lng }: busListProps) => {
   useEffect(() => {
     const backAction = () => {
       router.back();
@@ -29,8 +34,8 @@ const MapScreen = () => {
           loadingEnabled={true}
           style={styles.mapbox}
           initialRegion={{
-            latitude: 26.7605545,
-            longitude: 83.3731675,
+            latitude: lat || 26.7605545,
+            longitude: lng || 83.3731675,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}

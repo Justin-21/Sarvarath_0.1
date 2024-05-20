@@ -10,7 +10,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/native";
 import MapView from "react-native-maps";
-import { useRouter } from "expo-router";
+import { router } from "expo-router";
 
 type busListProps = {
   lat?: number;
@@ -31,11 +31,15 @@ const BusList = ({
   busNumber,
   lastStop,
 }: busListProps) => {
-  const router = useRouter();
-
-  const handleMapTouch = () => {
-    console.log("success");
-    router.navigate("mapScreen");
+  const handleMapTouch = (lat: number, lng: number) => {
+    // console.log("success");
+    router.navigate({
+      pathname: "mapScreen",
+      params: {
+        latitude: lat,
+        longitude: lng,
+      },
+    });
   };
 
   return (
@@ -60,7 +64,7 @@ const BusList = ({
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
-          />
+          ></MapView>
         </View>
         <View style={[styles.eta, styles.contentBox]}>
           <Text style={styles.heading}>Time to reach</Text>

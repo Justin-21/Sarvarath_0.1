@@ -5,15 +5,10 @@ import BusList from "@/components/busList";
 import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
 
-interface Coordinates {
-  lat: number;
-  lng: number;
-}
-
 export default function SearchBuses() {
   //function to handle the back gesture
 
-  const { data, latitude, longitude } = useLocalSearchParams();
+  const { latitude, longitude } = useLocalSearchParams();
   // const coordinatesObject = coordinates as Coordinates;
 
   // const lat = coordinatesObject?.lat;
