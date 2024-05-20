@@ -21,7 +21,7 @@ export default function Profile() {
 
   useEffect(() => {
     const backAction = () => {
-      router.navigate("home");
+      router.navigate("/");
       return true;
     };
 

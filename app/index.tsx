@@ -1,13 +1,11 @@
-import { Alert, FlatList, ScrollView, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 
 import BusList from "@/components/busList";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import { GOOGLE_MAPS_API_KEY } from "@env";
 import { useEffect, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import busData from "@/constants/busData";
-import { Text } from "react-native";
 import * as Location from "expo-location";
 import { router } from "expo-router";
 
@@ -43,11 +41,6 @@ export default function App() {
 
   const handleSearch = (data: object, details: any) => {
     if (details && details.geometry && details.geometry.location) {
-      // const coordinates: Coordinates = {
-      //   latitude: details.geometry.location.lat,
-      //   longitude: details.geometry.location.lng,
-      // };
-
       router.navigate({
         pathname: "/searchBuses/",
         params: {
@@ -56,13 +49,7 @@ export default function App() {
           longitude: details.geometry.location.lng,
         },
       });
-      // navigation.navigate("SearchBuses", {
-      // data: {
-      //   description: data.description,
-      // place_id: data.place_id,
-      // },
-      //   coordinates: details.geometry.location,
-      // });
+
       // console.log(data);
       // console.log(JSON.stringify(details));
       // console.log(details.geometry.location);
@@ -73,7 +60,6 @@ export default function App() {
 
   return (
     <>
-      {/* <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> </TouchableWithoutFeedback> */}
       <View style={styles.container}>
         <GooglePlacesAutocomplete
           styles={{

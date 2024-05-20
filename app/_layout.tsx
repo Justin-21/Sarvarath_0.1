@@ -92,7 +92,7 @@ function RootLayoutNav() {
         />
 
         <Stack.Screen
-          name="home/index"
+          name="index"
           options={{
             //header Left Button
             statusBarHidden: false,

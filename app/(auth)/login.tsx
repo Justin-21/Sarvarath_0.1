@@ -64,7 +64,7 @@ const Login = () => {
   }, [navigation, count]);
 
   const handleLogin = () => {
-    router.navigate("/home");
+    router.navigate("/");
   };
 
   // const handleLogin = () => {
