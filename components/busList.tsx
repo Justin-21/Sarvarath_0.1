@@ -10,7 +10,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/native";
 import MapView from "react-native-maps";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
 type busListProps = {
   lat?: number;
@@ -31,13 +31,17 @@ const BusList = ({
   busNumber,
   lastStop,
 }: busListProps) => {
-  const handleMapTouch = (lat: number, lng: number) => {
+  //import latitude and longitude from previous screens
+  const { latitude, longitude } = useLocalSearchParams();
+
+  const handleMapTouch = () => {
     // console.log("success");
+    console.log(latitude, longitude);
     router.navigate({
       pathname: "mapScreen",
       params: {
-        latitude: lat,
-        longitude: lng,
+        latitude: latitude,
+        longitude: longitude,
       },
     });
   };
@@ -56,11 +60,10 @@ const BusList = ({
             scrollEnabled={false}
             loadingEnabled={true}
             zoomEnabled={false}
-            onPress={handleMapTouch}
             style={styles.mapbox}
             region={{
-              latitude: lat || 26.7605545,
-              longitude: lng || 83.3731675,
+              latitude: lat ? lat : 26.7605545,
+              longitude: lng ? lng : 83.3731675,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}

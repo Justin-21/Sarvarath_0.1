@@ -36,7 +36,7 @@ export default function SearchBuses() {
           lng={Number(longitude)}
           ETA="5 min"
           route="ABC - XYZ"
-          busNumber="UP53 XX XXXX"
+          busNumber="UP53 XY 0001"
           lastStop="Rustampur"
           nextStop="Amrud Mandi"
         />

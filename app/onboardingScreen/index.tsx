@@ -16,21 +16,21 @@ const OnboardingScreen = () => {
             title: "Hello User!",
             subtitle: "Welcome To Sarvarath",
             imageUri: Image.resolveAssetSource(
-              require("../assets/images/logo.png")
+              require("../../assets/images/logo.png")
             ).uri,
           },
           {
             title: "Find nearby Buses",
             subtitle: "Remove any hassle and find the bus to your destination",
             imageUri: Image.resolveAssetSource(
-              require("../assets/images/nearbyBus.png")
+              require("../../assets/images/nearbyBus.png")
             ).uri,
           },
           {
             title: "Track Buses",
             subtitle: "A convenient way to track the location of the buses",
             imageUri: Image.resolveAssetSource(
-              require("../assets/images/trackBus.jpg")
+              require("../../assets/images/trackBus.jpg")
             ).uri,
           },
           {
@@ -38,18 +38,18 @@ const OnboardingScreen = () => {
             subtitle:
               "Get detailed information about the stops and routes of any bus",
             imageUri: Image.resolveAssetSource(
-              require("../assets/images/busDetails.jpg")
+              require("../../assets/images/busDetails.jpg")
             ).uri,
           },
           {
             title: "Let's get you started!",
             subtitle: "Login to continue",
             imageUri: Image.resolveAssetSource(
-              require("../assets/images/getStarted.jpg")
+              require("../../assets/images/getStarted.jpg")
             ).uri,
           },
         ]}
-        type="fullscreen"
+        type={"bottom-sheet"}
       />
     </View>
   );

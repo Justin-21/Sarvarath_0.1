@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 import BusList from "@/components/busList";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
@@ -6,6 +6,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { GOOGLE_MAPS_API_KEY } from "@env";
 import { useEffect, useState } from "react";
 import busData from "@/constants/busData";
+import busRouteData from "@/constants/busRouteData";
 import * as Location from "expo-location";
 import { router } from "expo-router";
 
@@ -108,6 +109,7 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "#f0f0f0",
     alignItems: "center",
+    gap: 10,
   },
 
   searchBarContainer: {
