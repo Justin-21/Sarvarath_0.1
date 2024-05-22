@@ -6,6 +6,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Stack, router } from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { LocationProvider } from "@/context/locationContext";
 
 import {
   useFonts,
@@ -71,7 +72,7 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <>
+    <LocationProvider>
       <Stack
         initialRouteName="onboardingScreen/index"
         screenOptions={{
@@ -144,7 +145,7 @@ function RootLayoutNav() {
           }}
         />
       </Stack>
-    </>
+    </LocationProvider>
   );
 }
 
