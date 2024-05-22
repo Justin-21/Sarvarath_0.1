@@ -73,13 +73,13 @@ function RootLayoutNav() {
   return (
     <>
       <Stack
-        initialRouteName="onboardingScreen"
+        initialRouteName="onboardingScreen/index"
         screenOptions={{
           statusBarStyle: "dark",
         }}
       >
         <Stack.Screen
-          name="onboardingScreen"
+          name="onboardingScreen/index"
           options={{
             headerShown: false,
           }}

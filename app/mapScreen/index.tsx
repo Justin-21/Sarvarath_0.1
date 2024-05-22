@@ -3,13 +3,16 @@ import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Marker } from "react-native-maps";
 import { router } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 
 type busListProps = {
   lat?: number;
   lng?: number;
 };
 
-const MapScreen = ({ lat, lng }: busListProps) => {
+const MapScreen = () => {
+  const { lat, lng } = useLocalSearchParams();
+
   useEffect(() => {
     const backAction = () => {
       router.back();
@@ -34,8 +37,8 @@ const MapScreen = ({ lat, lng }: busListProps) => {
           loadingEnabled={true}
           style={styles.mapbox}
           initialRegion={{
-            latitude: lat || 26.7605545,
-            longitude: lng || 83.3731675,
+            latitude: lat ? Number(lat) : 26.7605545,
+            longitude: lng ? Number(lng) : 83.3731675,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
@@ -50,6 +53,8 @@ const MapScreen = ({ lat, lng }: busListProps) => {
           />
         </MapView>
       </View>
+
+      {/* create a list scroll view to show all the routes of the buses and the actual location of the bus at the moment */}
 
       <View style={styles.detailsBox}>
         <View style={styles.busDetails}>

@@ -434,7 +434,7 @@ const busRouteData = [
           },
         },
       ],
-      route: "RLM : GKP-AIR",
+      route: "RLM : GKP APT",
     },
   },
 ];
