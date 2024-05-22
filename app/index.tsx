@@ -4,41 +4,47 @@ import BusList from "@/components/busList";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import { GOOGLE_MAPS_API_KEY } from "@env";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import busData from "@/constants/busData";
 import busRouteData from "@/constants/busRouteData";
 import * as Location from "expo-location";
 import { router } from "expo-router";
+import LocationContext from "@/context/locationContext";
 
 export default function App() {
   const [search, setSearch] = useState<string>("");
   const [userLocation, setUserLocation] = useState<Location.LocationObject>();
-  const [errorMsg, setErrorMsg] = useState<string>("");
 
-  useEffect(() => {
-    try {
-      const getLocation = async () => {
-        let { status } = await Location.requestForegroundPermissionsAsync();
+  const { location, errorMsg } = useContext(LocationContext);
 
-        if (status !== "granted") {
-          console.log("Permission to access location was denied");
-          return;
-        }
+  let text = "Waiting..";
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    // text = `Latitude: ${location.coords.latitude}, Longitude: ${location.coords.longitude}`;
+    console.log(location);
+  }
 
-        let location = await Location.getCurrentPositionAsync({});
-        setUserLocation(location);
-        console.log(JSON.stringify(userLocation));
-      };
+  // useEffect(() => {
+  //   try {
+  //     const getLocation = async () => {
+  //       let { status } = await Location.requestForegroundPermissionsAsync();
 
-      getLocation();
-    } catch (error) {
-      console.log(error);
-    }
-  }, [setUserLocation]);
+  //       if (status !== "granted") {
+  //         console.log("Permission to access location was denied");
+  //         return;
+  //       }
 
-  // if (errorMsg) {
-  //   console.log(errorMsg);
-  // }
+  //       let location = await Location.getCurrentPositionAsync({});
+  //       setUserLocation(location);
+  //       console.log(JSON.stringify(userLocation));
+  //     };
+
+  //     getLocation();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [setUserLocation]);
 
   const handleSearch = (data: object, details: any) => {
     if (details && details.geometry && details.geometry.location) {

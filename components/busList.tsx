@@ -36,7 +36,7 @@ const BusList = ({
 
   const handleMapTouch = () => {
     // console.log("success");
-    console.log(latitude, longitude);
+    // console.log(latitude, longitude);
     router.navigate({
       pathname: "mapScreen",
       params: {
