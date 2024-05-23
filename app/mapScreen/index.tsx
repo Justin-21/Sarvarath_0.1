@@ -1,5 +1,5 @@
 import { BackHandler, StyleSheet, Text, View } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Marker } from "react-native-maps";
 import { router } from "expo-router";
@@ -8,6 +8,8 @@ import busRouteData from "@/constants/busRouteData";
 
 const MapScreen = () => {
   const { latitude, longitude } = useLocalSearchParams();
+  const [loc, setLoc] = useState<string>("-");
+  const [busNum, setBusNum] = useState<string>("-");
   // console.log(latitude, longitude);
 
   useEffect(() => {
@@ -53,6 +55,11 @@ const MapScreen = () => {
           {busRouteData.map((bus) =>
             bus.busData.stops.map((stop, index) => (
               <Marker
+                onPress={() => {
+                  setLoc(stop.location);
+                  setBusNum(bus.busData.busNumber);
+                  // console.log(stop.location);
+                }}
                 key={`${bus.id}-${index}`}
                 coordinate={{
                   latitude: stop.coordinates.latitude,
@@ -85,7 +92,7 @@ const MapScreen = () => {
             Bus Number
           </Text>
           <Text style={[styles.content, { color: "black", borderWidth: 0 }]}>
-            UP53 XX XXXX
+            {busNum}
           </Text>
         </View>
 
@@ -104,7 +111,10 @@ const MapScreen = () => {
 
           <View style={styles.contentBox}>
             <Text style={styles.heading}>Next Stop</Text>
-            <Text style={styles.content}>Amrud Mandi</Text>
+            <Text style={styles.content}>
+              {/* Amrud Mandi */}
+              {loc}
+            </Text>
           </View>
         </View>
       </View>
