@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Marker } from "react-native-maps";
 import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
+import busRouteData from "@/constants/busRouteData";
 
 const MapScreen = () => {
   const { latitude, longitude } = useLocalSearchParams();
@@ -48,6 +49,20 @@ const MapScreen = () => {
             title="Bus No. XX"
             description="UP53 XX XXXX"
           />
+
+          {busRouteData.map((bus) =>
+            bus.busData.stops.map((stop, index) => (
+              <Marker
+                key={`${bus.id}-${index}`}
+                coordinate={{
+                  latitude: stop.coordinates.latitude,
+                  longitude: stop.coordinates.longitude,
+                }}
+                title={stop.location}
+                description={`Bus: ${bus.busData.busNumber}, Route: ${bus.busData.route}`}
+              />
+            ))
+          )}
 
           {latitude && (
             <Marker
