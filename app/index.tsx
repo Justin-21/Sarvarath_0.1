@@ -12,39 +12,19 @@ import { router } from "expo-router";
 import LocationContext from "@/context/locationContext";
 
 export default function App() {
-  const [search, setSearch] = useState<string>("");
+  //state to manage the selected bus to render the routes of the bus
+  const [busID, setBusID] = useState<number>(busRouteData[0].id);
   const [userLocation, setUserLocation] = useState<Location.LocationObject>();
 
+  //consume user location from the Context API
   const { location, errorMsg } = useContext(LocationContext);
 
   let text = "Waiting..";
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
-    // text = `Latitude: ${location.coords.latitude}, Longitude: ${location.coords.longitude}`;
     console.log(location);
   }
-
-  // useEffect(() => {
-  //   try {
-  //     const getLocation = async () => {
-  //       let { status } = await Location.requestForegroundPermissionsAsync();
-
-  //       if (status !== "granted") {
-  //         console.log("Permission to access location was denied");
-  //         return;
-  //       }
-
-  //       let location = await Location.getCurrentPositionAsync({});
-  //       setUserLocation(location);
-  //       console.log(JSON.stringify(userLocation));
-  //     };
-
-  //     getLocation();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, [setUserLocation]);
 
   const handleSearch = (data: object, details: any) => {
     if (details && details.geometry && details.geometry.location) {
@@ -93,8 +73,9 @@ export default function App() {
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.listContainer}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <BusList
+              id={index}
               ETA={item.ETA}
               route={item.route}
               busNumber={item.busNumber}

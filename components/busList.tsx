@@ -20,6 +20,7 @@ type busListProps = {
   route: string;
   busNumber: string;
   lastStop: string;
+  id: number;
 };
 
 const BusList = ({
@@ -30,6 +31,7 @@ const BusList = ({
   route,
   busNumber,
   lastStop,
+  id,
 }: busListProps) => {
   //import latitude and longitude from previous screens
   const { latitude, longitude } = useLocalSearchParams();
@@ -37,6 +39,7 @@ const BusList = ({
   const handleMapTouch = () => {
     // console.log("success");
     // console.log(latitude, longitude);
+    console.log(id);
     router.navigate({
       pathname: "mapScreen",
       params: {
