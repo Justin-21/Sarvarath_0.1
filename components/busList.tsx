@@ -37,14 +37,12 @@ const BusList = ({
   const { latitude, longitude } = useLocalSearchParams();
 
   const handleMapTouch = () => {
-    // console.log("success");
-    // console.log(latitude, longitude);
-    console.log(id);
     router.navigate({
       pathname: "mapScreen",
       params: {
         latitude: latitude,
         longitude: longitude,
+        id: id,
       },
     });
   };
@@ -91,34 +89,20 @@ const BusList = ({
 
         <View style={[styles.lastStop, styles.contentBox]}>
           <Text style={styles.heading}>Last Stop</Text>
-          <Text
-            numberOfLines={1}
-            ellipsizeMode="middle"
-            style={styles.content}
-          >
+          <Text numberOfLines={1} ellipsizeMode="middle" style={styles.content}>
             {lastStop}
           </Text>
         </View>
 
         <View style={[styles.nextStop, styles.contentBox]}>
           <Text style={styles.heading}>Next Stop</Text>
-          <Text
-            numberOfLines={1}
-            style={styles.content}
-          >
+          <Text numberOfLines={1} style={styles.content}>
             {nextStop}
           </Text>
         </View>
 
-        <TouchableOpacity
-          style={[styles.trackBtn]}
-          onPress={handleMapTouch}
-        >
-          <FontAwesome6
-            name="location-arrow"
-            size={24}
-            color="#7abd23"
-          />
+        <TouchableOpacity style={[styles.trackBtn]} onPress={handleMapTouch}>
+          <FontAwesome6 name="location-arrow" size={24} color="#7abd23" />
           <Text
             style={{
               fontFamily: "Poppins_600",

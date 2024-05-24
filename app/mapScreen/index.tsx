@@ -7,10 +7,9 @@ import { useLocalSearchParams } from "expo-router";
 import busRouteData from "@/constants/busRouteData";
 
 const MapScreen = () => {
-  const { latitude, longitude } = useLocalSearchParams();
+  const { latitude, longitude, id }: any = useLocalSearchParams();
   const [loc, setLoc] = useState<string>("-");
   const [busNum, setBusNum] = useState<string>("-");
-  // console.log(latitude, longitude);
 
   useEffect(() => {
     const backAction = () => {
@@ -52,26 +51,31 @@ const MapScreen = () => {
             description="UP53 XX XXXX"
           />
 
-          {busRouteData.map((bus) =>
-            bus.busData.stops.map((stop, index) => (
-              <Marker
-                onPress={() => {
-                  setLoc(stop.location);
-                  setBusNum(bus.busData.busNumber);
-                  // console.log(stop.location);
-                }}
-                key={`${bus.id}-${index}`}
-                coordinate={{
-                  latitude: stop.coordinates.latitude,
-                  longitude: stop.coordinates.longitude,
-                }}
-                title={stop.location}
-                description={`Bus: ${bus.busData.busNumber}, Route: ${bus.busData.route}`}
-              />
-            ))
-          )}
+          {busRouteData?.map((bus: any, index: any) => {
+            return (
+              index == id &&
+              bus?.busData?.stops?.map((stop: any, index: any) => {
+                return (
+                  <Marker
+                    onPress={() => {
+                      setLoc(stop.location);
+                      setBusNum(bus.busData.busNumber);
+                      // console.log(stop.location);
+                    }}
+                    key={`${bus.id}-${index}`}
+                    coordinate={{
+                      latitude: stop.coordinates.latitude,
+                      longitude: stop.coordinates.longitude,
+                    }}
+                    title={stop.location}
+                    description={`Bus: ${bus.busData.busNumber}, Route: ${bus.busData.route}`}
+                  />
+                );
+              })
+            );
+          })}
 
-          {latitude && (
+          {latitude && longitude && (
             <Marker
               coordinate={{
                 latitude: Number(latitude),

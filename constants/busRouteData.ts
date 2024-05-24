@@ -1,25 +1,6 @@
-type busRouteData = [
+const busRouteData: any = [
   {
-    id: number;
-    busData: {
-      busNumber: string;
-      stops: [
-        {
-          location: string;
-          coordinates: {
-            latitude: number;
-            longitude: number;
-          };
-        }
-      ];
-      route: string;
-    };
-  }
-];
-
-const busRouteData = [
-  {
-    id: 1,
+    id: 0,
     busData: {
       busNumber: "UP53 XY 0001",
       stops: [
@@ -352,7 +333,7 @@ const busRouteData = [
   },
 
   {
-    id: 2,
+    id: 1,
     busData: {
       busNumber: "UP52 XY 0002",
       stops: [
