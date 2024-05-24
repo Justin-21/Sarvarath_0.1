@@ -43,6 +43,7 @@ const BusList = ({
         latitude: latitude,
         longitude: longitude,
         id: id,
+        busNo: busNumber,
       },
     });
   };
