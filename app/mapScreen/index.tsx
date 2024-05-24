@@ -5,6 +5,7 @@ import MapView, { Marker } from "react-native-maps";
 import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
 import busRouteData from "@/constants/busRouteData";
+import { FontAwesome5, FontAwesome6, Octicons } from "@expo/vector-icons";
 
 const MapScreen = () => {
   const { latitude, longitude } = useLocalSearchParams();
@@ -58,7 +59,6 @@ const MapScreen = () => {
                 onPress={() => {
                   setLoc(stop.location);
                   setBusNum(bus.busData.busNumber);
-                  // console.log(stop.location);
                 }}
                 key={`${bus.id}-${index}`}
                 coordinate={{
@@ -67,11 +67,19 @@ const MapScreen = () => {
                 }}
                 title={stop.location}
                 description={`Bus: ${bus.busData.busNumber}, Route: ${bus.busData.route}`}
-              />
+              >
+                <Text>
+                  <Octicons
+                    name="dot-fill"
+                    size={24}
+                    color="#004d70"
+                  />
+                </Text>
+              </Marker>
             ))
           )}
 
-          {latitude && (
+          {latitude && longitude && (
             <Marker
               coordinate={{
                 latitude: Number(latitude),
