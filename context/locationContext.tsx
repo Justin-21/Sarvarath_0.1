@@ -38,7 +38,7 @@ export const LocationProvider: React.FC<LocationProviderProps> = ({
       subscriber = await Location.watchPositionAsync(
         {
           accuracy: Location.Accuracy.Highest,
-          timeInterval: 5000, // Update every 10 seconds
+          timeInterval: 10000, // Update every 10 seconds
           distanceInterval: 10, // Update every 10 meters
         },
         (newLocation) => {
