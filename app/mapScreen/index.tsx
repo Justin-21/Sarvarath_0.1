@@ -8,9 +8,8 @@ import busRouteData from "@/constants/busRouteData";
 import { FontAwesome5, FontAwesome6, Octicons } from "@expo/vector-icons";
 
 const MapScreen = () => {
-  const { latitude, longitude, id }: any = useLocalSearchParams();
+  const { latitude, longitude, id, busNo }: any = useLocalSearchParams();
   const [loc, setLoc] = useState<string>("-");
-  const [busNum, setBusNum] = useState<string>("-");
 
   useEffect(() => {
     const backAction = () => {
@@ -60,8 +59,6 @@ const MapScreen = () => {
                   <Marker
                     onPress={() => {
                       setLoc(stop.location);
-                      setBusNum(bus.busData.busNumber);
-                      // console.log(stop.location);
                     }}
                     key={`${bus.id}-${index}`}
                     coordinate={{
@@ -97,7 +94,7 @@ const MapScreen = () => {
             Bus Number
           </Text>
           <Text style={[styles.content, { color: "black", borderWidth: 0 }]}>
-            {busNum}
+            {busNo}
           </Text>
         </View>
 
@@ -116,10 +113,7 @@ const MapScreen = () => {
 
           <View style={styles.contentBox}>
             <Text style={styles.heading}>Next Stop</Text>
-            <Text style={styles.content}>
-              {/* Amrud Mandi */}
-              {loc}
-            </Text>
+            <Text style={styles.content}>{loc}</Text>
           </View>
         </View>
       </View>
