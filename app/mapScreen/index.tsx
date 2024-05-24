@@ -8,10 +8,9 @@ import busRouteData from "@/constants/busRouteData";
 import { FontAwesome5, FontAwesome6, Octicons } from "@expo/vector-icons";
 
 const MapScreen = () => {
-  const { latitude, longitude } = useLocalSearchParams();
+  const { latitude, longitude, id }: any = useLocalSearchParams();
   const [loc, setLoc] = useState<string>("-");
   const [busNum, setBusNum] = useState<string>("-");
-  // console.log(latitude, longitude);
 
   useEffect(() => {
     const backAction = () => {
@@ -59,6 +58,7 @@ const MapScreen = () => {
                 onPress={() => {
                   setLoc(stop.location);
                   setBusNum(bus.busData.busNumber);
+                  // console.log(stop.location);
                 }}
                 key={`${bus.id}-${index}`}
                 coordinate={{
@@ -67,15 +67,7 @@ const MapScreen = () => {
                 }}
                 title={stop.location}
                 description={`Bus: ${bus.busData.busNumber}, Route: ${bus.busData.route}`}
-              >
-                <Text>
-                  <Octicons
-                    name="dot-fill"
-                    size={24}
-                    color="#004d70"
-                  />
-                </Text>
-              </Marker>
+              />
             ))
           )}
 
