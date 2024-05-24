@@ -52,24 +52,29 @@ const MapScreen = () => {
             description="UP53 XX XXXX"
           />
 
-          {busRouteData.map((bus) =>
-            bus.busData.stops.map((stop, index) => (
-              <Marker
-                onPress={() => {
-                  setLoc(stop.location);
-                  setBusNum(bus.busData.busNumber);
-                  // console.log(stop.location);
-                }}
-                key={`${bus.id}-${index}`}
-                coordinate={{
-                  latitude: stop.coordinates.latitude,
-                  longitude: stop.coordinates.longitude,
-                }}
-                title={stop.location}
-                description={`Bus: ${bus.busData.busNumber}, Route: ${bus.busData.route}`}
-              />
-            ))
-          )}
+          {busRouteData?.map((bus: any, index: any) => {
+            return (
+              index == id &&
+              bus?.busData?.stops?.map((stop: any, index: any) => {
+                return (
+                  <Marker
+                    onPress={() => {
+                      setLoc(stop.location);
+                      setBusNum(bus.busData.busNumber);
+                      // console.log(stop.location);
+                    }}
+                    key={`${bus.id}-${index}`}
+                    coordinate={{
+                      latitude: stop.coordinates.latitude,
+                      longitude: stop.coordinates.longitude,
+                    }}
+                    title={stop.location}
+                    description={`Bus: ${bus.busData.busNumber}, Route: ${bus.busData.route}`}
+                  />
+                );
+              })
+            );
+          })}
 
           {latitude && longitude && (
             <Marker
