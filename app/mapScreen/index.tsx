@@ -1,14 +1,21 @@
 import { BackHandler, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Polyline } from "react-native-maps";
 import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
 import busRouteData from "@/constants/busRouteData";
+import {
+  FontAwesome,
+  FontAwesome5,
+  FontAwesome6,
+  Octicons,
+} from "@expo/vector-icons";
 
 const MapScreen = () => {
   const { latitude, longitude, id, busNo }: any = useLocalSearchParams();
   const [loc, setLoc] = useState<string>("-");
+  const [nextStop, setNextStop] = useState<string>("");
 
   useEffect(() => {
     const backAction = () => {
@@ -30,8 +37,8 @@ const MapScreen = () => {
         <MapView
           showsUserLocation={true}
           userLocationUpdateInterval={5000}
+          mapType="terrain"
           userInterfaceStyle="dark"
-          showsTraffic={true}
           loadingEnabled={true}
           style={styles.mapbox}
           initialRegion={{
@@ -41,16 +48,16 @@ const MapScreen = () => {
             longitudeDelta: 0.0421,
           }}
         >
-          <Marker
+          {/* <Marker
             coordinate={{
               latitude: 26.7605545,
               longitude: 83.3731675,
             }}
             title="Bus No. XX"
             description="UP53 XX XXXX"
-          />
+          /> */}
 
-          {busRouteData?.map((bus: any, index: any) => {
+          {busRouteData?.map((bus: any, index: number) => {
             return (
               index == id &&
               bus?.busData?.stops?.map((stop: any, index: any) => {
@@ -58,6 +65,7 @@ const MapScreen = () => {
                   <Marker
                     onPress={() => {
                       setLoc(stop.location);
+                      setNextStop(bus?.busData?.stops[index + 1]?.location);
                     }}
                     key={`${bus.id}-${index}`}
                     coordinate={{
@@ -66,6 +74,31 @@ const MapScreen = () => {
                     }}
                     title={stop.location}
                     description={`Bus: ${bus.busData.busNumber}, Route: ${bus.busData.route}`}
+                  >
+                    <Octicons
+                      name="location"
+                      size={24}
+                      color="#3c3c3c"
+                    />
+                  </Marker>
+                );
+              })
+            );
+          })}
+
+          {busRouteData?.map((bus: any, index: any) => {
+            return (
+              index == id &&
+              bus?.busData?.stops?.map((stop: any, index: any) => {
+                return (
+                  <Polyline
+                    key={index}
+                    coordinates={bus?.busData?.stops?.map((stop: any) => ({
+                      latitude: stop.coordinates.latitude,
+                      longitude: stop.coordinates.longitude,
+                    }))}
+                    strokeColor="#4500ff"
+                    strokeWidth={6}
                   />
                 );
               })
@@ -112,7 +145,10 @@ const MapScreen = () => {
 
           <View style={styles.contentBox}>
             <Text style={styles.heading}>Next Stop</Text>
-            <Text style={styles.content}>{loc}</Text>
+            <Text style={styles.content}>
+              {/* {loc} */}
+              {nextStop}
+            </Text>
           </View>
         </View>
       </View>

@@ -1,4 +1,4 @@
-const busRouteData: any = [
+const busRouteData = [
   {
     id: 0,
     busData: {

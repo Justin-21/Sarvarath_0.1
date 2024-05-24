@@ -49,7 +49,7 @@ const OnboardingScreen = () => {
             ).uri,
           },
         ]}
-        type={"bottom-sheet"}
+        type={"fullscreen"}
       />
     </View>
   );

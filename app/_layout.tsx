@@ -134,7 +134,7 @@ function RootLayoutNav() {
           name="searchBuses/index"
           options={{
             title: "Search",
-            headerShown: true,
+            headerShown: false,
           }}
         />
 

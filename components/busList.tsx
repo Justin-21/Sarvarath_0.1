@@ -9,18 +9,18 @@ import React from "react";
 import { FontAwesome6 } from "@expo/vector-icons";
 
 import { useNavigation } from "@react-navigation/native";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { router, useLocalSearchParams } from "expo-router";
 
 type busListProps = {
   lat?: number;
   lng?: number;
+  id?: number;
   ETA: string;
   nextStop: string;
   route: string;
   busNumber: string;
   lastStop: string;
-  id: number;
 };
 
 const BusList = ({
@@ -69,7 +69,18 @@ const BusList = ({
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
-          ></MapView>
+          >
+            {lat && lng && (
+              <Marker
+                coordinate={{
+                  latitude: lat,
+                  longitude: lng,
+                }}
+                title="Bus No. XX"
+                description="UP53 XX XXXX"
+              />
+            )}
+          </MapView>
         </View>
         <View style={[styles.eta, styles.contentBox]}>
           <Text style={styles.heading}>Time to reach</Text>
