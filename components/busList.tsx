@@ -8,7 +8,6 @@ import {
 import React from "react";
 import { FontAwesome6 } from "@expo/vector-icons";
 
-import { useNavigation } from "@react-navigation/native";
 import MapView, { Marker } from "react-native-maps";
 import { router, useLocalSearchParams } from "expo-router";
 
@@ -101,20 +100,34 @@ const BusList = ({
 
         <View style={[styles.lastStop, styles.contentBox]}>
           <Text style={styles.heading}>Last Stop</Text>
-          <Text numberOfLines={1} ellipsizeMode="middle" style={styles.content}>
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="middle"
+            style={styles.content}
+          >
             {lastStop}
           </Text>
         </View>
 
         <View style={[styles.nextStop, styles.contentBox]}>
           <Text style={styles.heading}>Next Stop</Text>
-          <Text numberOfLines={1} style={styles.content}>
+          <Text
+            numberOfLines={1}
+            style={styles.content}
+          >
             {nextStop}
           </Text>
         </View>
 
-        <TouchableOpacity style={[styles.trackBtn]} onPress={handleMapTouch}>
-          <FontAwesome6 name="location-arrow" size={24} color="#7abd23" />
+        <TouchableOpacity
+          style={[styles.trackBtn]}
+          onPress={handleMapTouch}
+        >
+          <FontAwesome6
+            name="location-arrow"
+            size={24}
+            color="#7abd23"
+          />
           <Text
             style={{
               fontFamily: "Poppins_600",

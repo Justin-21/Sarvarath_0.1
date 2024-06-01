@@ -34,6 +34,10 @@
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Allow Sarvarath to use your location."
+        },
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow the app to access photos on your device."
         }
       ]
     ],

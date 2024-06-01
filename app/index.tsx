@@ -1,5 +1,4 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-
 import BusList from "@/components/busList";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
@@ -36,10 +35,6 @@ export default function App() {
           longitude: details.geometry.location.lng,
         },
       });
-
-      // console.log(data);
-      // console.log(JSON.stringify(details));
-      // console.log(details.geometry.location);
     } else {
       console.log("Coordinates not available");
     }

@@ -5,12 +5,7 @@ import MapView, { Marker, Polyline } from "react-native-maps";
 import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
 import busRouteData from "@/constants/busRouteData";
-import {
-  FontAwesome,
-  FontAwesome5,
-  FontAwesome6,
-  Octicons,
-} from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
 
 const MapScreen = () => {
   const { latitude, longitude, id, busNo }: any = useLocalSearchParams();

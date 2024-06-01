@@ -3,11 +3,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  TextInput,
-  Button,
   BackHandler,
   Alert,
-  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Image, TouchableWithoutFeedback, Keyboard } from "react-native";
@@ -70,7 +67,11 @@ const Login = () => {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
-        <Image source={logo} resizeMode="contain" style={styles.logo} />
+        <Image
+          source={logo}
+          resizeMode="contain"
+          style={styles.logo}
+        />
         <View style={styles.topContainer}>
           <Text
             style={{
@@ -127,7 +128,10 @@ const Login = () => {
             Or
           </Text>
 
-          <TouchableOpacity onPress={handleLoginSkip} style={styles.skipBtn}>
+          <TouchableOpacity
+            onPress={handleLoginSkip}
+            style={styles.skipBtn}
+          >
             <Text style={styles.skipText}>Continue without login</Text>
           </TouchableOpacity>
         </View>
