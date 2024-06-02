@@ -5,12 +5,14 @@ import * as Location from "expo-location";
 interface LocationContextProps {
   location: Location.LocationObject | null;
   errorMsg: string | null;
+  getUserLocation: Function;
 }
 
 // Create the context with default values
 const LocationContext = createContext<LocationContextProps>({
   location: null,
   errorMsg: null,
+  getUserLocation: () => {},
 });
 
 interface LocationProviderProps {
@@ -25,7 +27,7 @@ export const LocationProvider: React.FC<LocationProviderProps> = ({
   );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  useEffect(() => {
+  const getUserLocation = () => {
     let subscriber: Location.LocationSubscription | null = null;
 
     (async () => {
@@ -52,10 +54,10 @@ export const LocationProvider: React.FC<LocationProviderProps> = ({
         subscriber.remove();
       }
     };
-  }, []);
+  };
 
   return (
-    <LocationContext.Provider value={{ location, errorMsg }}>
+    <LocationContext.Provider value={{ location, errorMsg, getUserLocation }}>
       {children}
     </LocationContext.Provider>
   );

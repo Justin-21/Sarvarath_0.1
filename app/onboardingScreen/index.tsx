@@ -1,5 +1,5 @@
 import { Image, StatusBar, StyleSheet, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { OnboardFlow } from "react-native-onboard";
 import { router } from "expo-router";
 
@@ -8,7 +8,9 @@ const OnboardingScreen = () => {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <OnboardFlow
-        onDone={() => router.navigate("/(auth)/login")}
+        onDone={() => {
+          router.navigate("/(auth)/login");
+        }}
         subtitleStyle={styles.subTitle}
         titleStyle={styles.title}
         pages={[

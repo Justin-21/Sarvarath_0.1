@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
 
 function DropDown() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
+  const [items, setItems] = useState<Array<object>>([
     { label: "GKP", value: "Gorakhpur" },
     { label: "VNS", value: "Varanasi" },
     { label: "DEL", value: "Delhi" },

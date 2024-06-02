@@ -31,7 +31,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "index",
+  initialRouteName: "onboardingScreen/index",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -72,80 +72,84 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <LocationProvider>
-      <Stack
-        initialRouteName="onboardingScreen/index"
-        screenOptions={{
-          statusBarStyle: "dark",
-        }}
-      >
-        <Stack.Screen
-          name="onboardingScreen/index"
-          options={{
-            headerShown: false,
-          }}
-        />
-
-        <Stack.Screen
-          name="(auth)"
-          options={{
-            headerShown: false,
-          }}
-        />
-
-        <Stack.Screen
-          name="index"
-          options={{
-            //header Left Button
-            statusBarHidden: false,
+    <>
+      <LocationProvider>
+        <Stack
+          initialRouteName="onboardingScreen/index"
+          screenOptions={{
             statusBarStyle: "dark",
-            statusBarColor: "#ffd700",
-            headerShown: true,
-            header: () => {
-              return (
-                <View style={styles.header}>
-                  <TouchableOpacity
-                    style={styles.iconContainer}
-                    activeOpacity={0.7}
-                    onPress={() => router.navigate("profile")}
-                  >
-                    <FontAwesome5
-                      name="user-alt"
-                      color="black"
-                      size={20}
-                      style={styles.icon}
-                    />
-                  </TouchableOpacity>
+          }}
+        >
+          <Stack.Screen
+            name="onboardingScreen/index"
+            options={{
+              headerShown: false,
+              statusBarHidden: false,
+              statusBarStyle: "dark",
+            }}
+          />
 
-                  <View style={styles.titleContainer}>
-                    <Text style={styles.title}>SARVARATH</Text>
+          <Stack.Screen
+            name="(auth)"
+            options={{
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="index"
+            options={{
+              //header Left Button
+              statusBarHidden: false,
+              statusBarStyle: "dark",
+              statusBarColor: "#ffd700",
+              headerShown: true,
+              header: () => {
+                return (
+                  <View style={styles.header}>
+                    <TouchableOpacity
+                      style={styles.iconContainer}
+                      activeOpacity={0.7}
+                      onPress={() => router.navigate("profile")}
+                    >
+                      <FontAwesome5
+                        name="user-alt"
+                        color="black"
+                        size={20}
+                        style={styles.icon}
+                      />
+                    </TouchableOpacity>
+
+                    <View style={styles.titleContainer}>
+                      <Text style={styles.title}>SARVARATH</Text>
+                    </View>
+
+                    <View style={styles.dropDown}>
+                      <DropDown />
+                    </View>
                   </View>
+                );
+              },
+            }}
+          />
 
-                  <View style={styles.dropDown}>
-                    <DropDown />
-                  </View>
-                </View>
-              );
-            },
-          }}
-        />
+          <Stack.Screen
+            name="searchBuses/index"
+            options={{
+              title: "Search",
+              headerShown: false,
+            }}
+          />
 
-        <Stack.Screen
-          name="searchBuses/index"
-          options={{
-            title: "Search",
-            headerShown: false,
-          }}
-        />
-
-        <Stack.Screen
-          name="mapScreen/index"
-          options={{
-            headerShown: false,
-          }}
-        />
-      </Stack>
-    </LocationProvider>
+          <Stack.Screen
+            name="mapScreen/index"
+            options={{
+              headerShown: false,
+            }}
+          />
+        </Stack>
+      </LocationProvider>
+    </>
   );
 }
 
@@ -169,11 +173,13 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "center",
     height: 40,
-    backgroundColor: "white",
+    backgroundColor: "#ffffff",
     borderTopRightRadius: 100,
     borderBottomRightRadius: 100,
   },
   icon: {
+    // backgroundColor: "#ffffff",
+    // padding: 10,
     marginRight: 20,
     height: "100%",
     textAlignVertical: "center",
@@ -190,7 +196,6 @@ const styles = StyleSheet.create({
 
   dropDown: {
     flex: 1 / 3,
-    // backgroundColor: "red",
     marginRight: 10,
   },
 });
