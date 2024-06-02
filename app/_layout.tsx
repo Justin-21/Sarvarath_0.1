@@ -23,6 +23,7 @@ import {
 import { StyleSheet } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import DropDown from "@/components/DropDown";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -73,82 +74,84 @@ function RootLayoutNav() {
 
   return (
     <>
-      <LocationProvider>
-        <Stack
-          initialRouteName="onboardingScreen/index"
-          screenOptions={{
-            statusBarStyle: "dark",
-          }}
-        >
-          <Stack.Screen
-            name="onboardingScreen/index"
-            options={{
-              headerShown: false,
-              statusBarHidden: false,
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <LocationProvider>
+          <Stack
+            initialRouteName="onboardingScreen/index"
+            screenOptions={{
               statusBarStyle: "dark",
             }}
-          />
+          >
+            <Stack.Screen
+              name="onboardingScreen/index"
+              options={{
+                headerShown: false,
+                statusBarHidden: false,
+                statusBarStyle: "dark",
+              }}
+            />
 
-          <Stack.Screen
-            name="(auth)"
-            options={{
-              headerShown: false,
-            }}
-          />
+            <Stack.Screen
+              name="(auth)"
+              options={{
+                headerShown: false,
+              }}
+            />
 
-          <Stack.Screen
-            name="index"
-            options={{
-              //header Left Button
-              statusBarHidden: false,
-              statusBarStyle: "dark",
-              statusBarColor: "#ffd700",
-              headerShown: true,
-              header: () => {
-                return (
-                  <View style={styles.header}>
-                    <TouchableOpacity
-                      style={styles.iconContainer}
-                      activeOpacity={0.7}
-                      onPress={() => router.navigate("profile")}
-                    >
-                      <FontAwesome5
-                        name="user-alt"
-                        color="black"
-                        size={20}
-                        style={styles.icon}
-                      />
-                    </TouchableOpacity>
+            <Stack.Screen
+              name="index"
+              options={{
+                //header Left Button
+                statusBarHidden: false,
+                statusBarStyle: "dark",
+                statusBarColor: "#ffd700",
+                headerShown: true,
+                header: () => {
+                  return (
+                    <View style={styles.header}>
+                      <TouchableOpacity
+                        style={styles.iconContainer}
+                        activeOpacity={0.7}
+                        onPress={() => router.navigate("profile")}
+                      >
+                        <FontAwesome5
+                          name="user-alt"
+                          color="black"
+                          size={20}
+                          style={styles.icon}
+                        />
+                      </TouchableOpacity>
 
-                    <View style={styles.titleContainer}>
-                      <Text style={styles.title}>SARVARATH</Text>
+                      <View style={styles.titleContainer}>
+                        <Text style={styles.title}>SARVARATH</Text>
+                      </View>
+
+                      <View style={styles.dropDown}>
+                        <DropDown />
+                      </View>
                     </View>
+                  );
+                },
+              }}
+            />
 
-                    <View style={styles.dropDown}>
-                      <DropDown />
-                    </View>
-                  </View>
-                );
-              },
-            }}
-          />
+            <Stack.Screen
+              name="searchBuses/index"
+              options={{
+                title: "Search",
+                headerShown: false,
+              }}
+            />
 
-          <Stack.Screen
-            name="searchBuses/index"
-            options={{
-              title: "Search",
-              headerShown: false,
-            }}
-          />
-
-          <Stack.Screen
-            name="mapScreen/index"
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack>
-      </LocationProvider>
+            <Stack.Screen
+              name="mapScreen/index"
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack>
+        </LocationProvider>
+      </GestureHandlerRootView>
     </>
   );
 }

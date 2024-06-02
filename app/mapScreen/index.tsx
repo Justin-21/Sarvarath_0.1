@@ -1,11 +1,15 @@
-import { BackHandler, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import { BackHandler, ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useMemo, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { router } from "expo-router";
 import { useLocalSearchParams } from "expo-router";
 import busRouteData from "@/constants/busRouteData";
-import { Octicons } from "@expo/vector-icons";
+import { Entypo, FontAwesome, Octicons } from "@expo/vector-icons";
+import BottomSheet, {
+  BottomSheetScrollView,
+  BottomSheetView,
+} from "@gorhom/bottom-sheet";
 
 const MapScreen = () => {
   const { latitude, longitude, id, busNo }: any = useLocalSearchParams();
@@ -25,6 +29,8 @@ const MapScreen = () => {
 
     return () => backHandler.remove();
   }, []);
+
+  const snapPoints = useMemo(() => ["25%", "75%"], []);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -115,38 +121,63 @@ const MapScreen = () => {
 
       {/* create a list scroll view to show all the routes of the buses and the actual location of the bus at the moment */}
 
-      <View style={styles.detailsBox}>
-        <View style={styles.busDetails}>
-          <Text style={[styles.heading, { color: "#0e0e0e", borderWidth: 0 }]}>
-            Bus Number
-          </Text>
-          <Text style={[styles.content, { color: "black", borderWidth: 0 }]}>
-            {busNo}
-          </Text>
-        </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: 20,
-          }}
-        >
-          <View style={styles.contentBox}>
-            <Text style={styles.heading}>Time to reach</Text>
-            <Text style={styles.content}>5 mins</Text>
-          </View>
-
-          <View style={styles.contentBox}>
-            <Text style={styles.heading}>Next Stop</Text>
-            <Text style={styles.content}>
-              {/* {loc} */}
-              {nextStop}
-            </Text>
-          </View>
-        </View>
-      </View>
+      <BottomSheet
+        snapPoints={snapPoints}
+        enableOverDrag={true}
+        style={{
+          flex: 1,
+          overflow: "scroll",
+        }}
+      >
+        <BottomSheetScrollView>
+          {busRouteData?.map((bus: any, index: any) => {
+            return (
+              index == id &&
+              bus?.busData?.stops?.map((stop: any, index: any) => {
+                return (
+                  <View
+                    key={index}
+                    style={{
+                      flexDirection: "row",
+                      paddingLeft: 10,
+                      paddingBottom: 10,
+                    }}
+                  >
+                    <FontAwesome
+                      name="dot-circle-o"
+                      size={
+                        stop.location == loc || stop.location == nextStop
+                          ? 24
+                          : 20
+                      }
+                      color="black"
+                    />
+                    <Entypo
+                      name="flow-line"
+                      size={24}
+                      color="black"
+                    />
+                    <Text
+                      style={[
+                        {
+                          fontFamily:
+                            stop.location == loc || stop.location == nextStop
+                              ? "Poppins_600"
+                              : "Poppins_400",
+                          fontSize: 16,
+                          paddingLeft: 10,
+                        },
+                      ]}
+                    >
+                      {stop.location}
+                    </Text>
+                  </View>
+                );
+              })
+            );
+          })}
+        </BottomSheetScrollView>
+      </BottomSheet>
     </SafeAreaView>
   );
 };
