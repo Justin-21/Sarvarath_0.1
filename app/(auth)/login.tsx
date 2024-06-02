@@ -6,9 +6,10 @@ import {
   BackHandler,
   Alert,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Image, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { router, useNavigation } from "expo-router";
+import LocationContext from "@/context/locationContext";
 
 const logo = require("../../assets/images/logo.png");
 
@@ -17,6 +18,8 @@ const googleIcon = require("../../assets/images/googleIcon.png");
 const Login = () => {
   var [count, setCount] = useState(0);
   const navigation = useNavigation();
+
+  const { getUserLocation } = useContext(LocationContext);
 
   useEffect(
     () =>
@@ -59,10 +62,12 @@ const Login = () => {
   }, [navigation, count]);
 
   const handleLoginSkip = () => {
-    router.navigate("/");
+    router.push("/");
   };
 
-  const handleGoogleLogin = () => {};
+  const handleGoogleLogin = () => {
+    router.navigate("/");
+  };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>

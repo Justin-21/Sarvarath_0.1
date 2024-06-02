@@ -48,12 +48,12 @@ const BusList = ({
   };
 
   return (
-    <View style={styles.listContainer}>
+    <View style={[styles.listContainer]}>
       {/* left */}
       <View style={styles.left}>
         {/* map component */}
         <View
-          style={[styles.map]}
+          style={[styles.map, styles.shadow]}
           onTouchEnd={handleMapTouch}
           onTouchMove={() => {}}
         >
@@ -81,13 +81,10 @@ const BusList = ({
             )}
           </MapView>
         </View>
+
         <View style={[styles.eta, styles.contentBox]}>
           <Text style={styles.heading}>Time to reach</Text>
           <Text style={styles.content}>{ETA}</Text>
-        </View>
-        <View style={[styles.busNo, styles.contentBox]}>
-          <Text style={styles.heading}>Bus Number</Text>
-          <Text style={styles.content}>{busNumber}</Text>
         </View>
       </View>
 
@@ -98,25 +95,36 @@ const BusList = ({
           <Text style={styles.content}>{route}</Text>
         </View>
 
-        <View style={[styles.lastStop, styles.contentBox]}>
-          <Text style={styles.heading}>Last Stop</Text>
-          <Text
-            numberOfLines={1}
-            ellipsizeMode="middle"
-            style={styles.content}
+        <View style={[styles.stops]}>
+          <View
+            style={{
+              height: "50%",
+            }}
           >
-            {lastStop}
-          </Text>
-        </View>
+            <Text style={styles.heading}>Last Stop</Text>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="middle"
+              style={styles.content}
+            >
+              {lastStop}
+            </Text>
+          </View>
 
-        <View style={[styles.nextStop, styles.contentBox]}>
-          <Text style={styles.heading}>Next Stop</Text>
-          <Text
-            numberOfLines={1}
-            style={styles.content}
+          <View
+            style={{
+              height: "50%",
+            }}
           >
-            {nextStop}
-          </Text>
+            <Text style={styles.heading}>Next Stop</Text>
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="middle"
+              style={styles.content}
+            >
+              {nextStop}
+            </Text>
+          </View>
         </View>
 
         <TouchableOpacity
@@ -152,15 +160,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     height: Dimensions.get("screen").height / 3,
-    backgroundColor: "#36363620",
+    backgroundColor: "#36363610",
     padding: 10,
     borderRadius: 10,
     gap: 5,
-  },
-
-  mapbox: {
-    width: "100%",
-    height: "100%",
   },
 
   left: {
@@ -177,7 +180,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
     fontFamily: "Poppins_500",
     borderRadius: 5,
-    maxHeight: 60,
+    // height: 60 || "auto",
     padding: 10,
     justifyContent: "center",
   },
@@ -188,6 +191,7 @@ const styles = StyleSheet.create({
     color: "#00000090",
     lineHeight: 16,
     height: "50%",
+    // backgroundColor: "blue",
   },
 
   content: {
@@ -196,19 +200,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 18,
     height: "50%",
+    // backgroundColor: "red",
   },
 
   map: {
     flex: 4,
-    backgroundColor: "#363636",
     borderRadius: 5,
+    overflow: "hidden",
+  },
+  mapbox: {
+    width: "100%",
+    height: "100%",
   },
 
   eta: {
-    flex: 1,
-  },
-
-  busNo: {
     flex: 1,
   },
 
@@ -216,16 +221,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  lastStop: {
-    flex: 1,
-  },
-
-  nextStop: {
-    flex: 1,
+  stops: {
+    flex: 2,
+    backgroundColor: "#f0f0f0",
+    padding: 10,
+    justifyContent: "space-between",
+    borderRadius: 5,
+    gap: 5,
   },
 
   trackBtn: {
-    flex: 1.5,
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -233,5 +239,10 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     backgroundColor: "#a5ff3080",
+  },
+
+  shadow: {
+    elevation: 10,
+    shadowColor: "#333333",
   },
 });

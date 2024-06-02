@@ -19,7 +19,7 @@ import { Image } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 export default function Profile() {
-  const [image, setImage] = useState<string>("");
+  const [image, setImage] = useState<string | null>(null);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -38,7 +38,7 @@ export default function Profile() {
   };
 
   const handleLogout = () => {
-    router.navigate("Login");
+    router.navigate("login");
   };
 
   useEffect(() => {
@@ -73,12 +73,12 @@ export default function Profile() {
               />
             )}
           </View>
-          <Pressable
+          <TouchableOpacity
             onPress={pickImage}
             style={styles.upload}
           >
-            <Text>Upload</Text>
-          </Pressable>
+            <Text style={styles.uploadText}>Upload</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.buttonList}>
@@ -197,16 +197,18 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: "black",
   },
+
   upload: {
     marginTop: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
     borderRadius: 8,
-    color: "black",
-    fontSize: 24,
-    fontWeight: "bold",
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: "#00000040",
+  },
+  uploadText: {
+    paddingVertical: 6,
+    paddingHorizontal: 20,
+    color: "black",
+    fontFamily: "Poppins_500",
   },
 
   buttonList: {
@@ -246,7 +248,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
-    marginTop: 30,
+    marginTop: 10,
     paddingVertical: 12,
     paddingLeft: 16,
     paddingRight: 20,

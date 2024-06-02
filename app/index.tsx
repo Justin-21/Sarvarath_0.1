@@ -16,7 +16,11 @@ export default function App() {
   const [userLocation, setUserLocation] = useState<Location.LocationObject>();
 
   //consume user location from the Context API
-  const { location, errorMsg } = useContext(LocationContext);
+  const { location, errorMsg, getUserLocation } = useContext(LocationContext);
+
+  useEffect(() => {
+    getUserLocation();
+  }, []);
 
   let text = "Waiting..";
   if (errorMsg) {
@@ -28,7 +32,7 @@ export default function App() {
   const handleSearch = (data: object, details: any) => {
     if (details && details.geometry && details.geometry.location) {
       router.navigate({
-        pathname: "/searchBuses/",
+        pathname: "/searchBuses",
         params: {
           data: data,
           latitude: details.geometry.location.lat,
@@ -104,7 +108,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 30,
     backgroundColor: "#e0e0e0",
-    paddingVertical: 0,
     paddingHorizontal: 20,
     fontSize: 16,
     fontFamily: "Poppins_500",
