@@ -63,10 +63,12 @@ const Login = () => {
 
   const handleLoginSkip = () => {
     router.push("/");
+    getUserLocation();
   };
 
   const handleGoogleLogin = () => {
-    router.navigate("/");
+    router.push("/");
+    getUserLocation();
   };
 
   return (
