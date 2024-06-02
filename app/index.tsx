@@ -16,11 +16,7 @@ export default function App() {
   const [userLocation, setUserLocation] = useState<Location.LocationObject>();
 
   //consume user location from the Context API
-  const { location, errorMsg, getUserLocation } = useContext(LocationContext);
-
-  useEffect(() => {
-    getUserLocation();
-  }, []);
+  const { location, errorMsg } = useContext(LocationContext);
 
   let text = "Waiting..";
   if (errorMsg) {

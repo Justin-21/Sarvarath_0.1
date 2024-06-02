@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Dimensions,
-  Pressable,
-  SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -43,7 +40,7 @@ export default function Profile() {
 
   useEffect(() => {
     const backAction = () => {
-      router.navigate("/");
+      router.push("/");
       return true;
     };
 
